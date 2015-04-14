@@ -1,5 +1,7 @@
-# ignore all bin directories
+# ignore all bin, mod, obj directories
 bin/
+mod/
+obj/
 
 # ignore all target directories
 target/
