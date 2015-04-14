@@ -1,0 +1,2677 @@
+[H[2JSaving data as 2012_11_24__16_35
+Loading topography file:  done.
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: At line 1125 of file src/misc/save_load.f90 (unit = 10, file = '')
+Fortran runtime error: File '/home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc180_topo_rot_2.0min_pole_15_-40.dat' does not exist
+
+Backtrace for this error:
+  + function __save_load_MOD_load_alloc_topo_real (0x4DE58C)
+    at line 1127 of file save_load.f90
+  + function __generate_grid_MOD_generate_global_grid (0x487189)
+    at line 128 of file generate_global_grid.f90
+  + in the main program
+    at line 79 of file baro_v1.f90
+  + /lib64/libc.so.6(__libc_start_main+0xfd) [0x3c4081ecdd]
+[H[2JSaving data as 2012_11_24__17_04
+Loading topography file:  done.
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file:  done.
+done (CPU: 1.055, Wall: 1.064)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.2s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.1s, Wall:1.1s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c.  Done.
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-3.0Gb; permanent-2.5Gb) 
+      Size of matrix factors 5.6Gb < 18.0Gb RAM+Swap. Running in-core with peak memory usage: 8.0Gb.
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 4:12.119, Wall: 1:41.777)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:15.423, Wall: 17.570)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 750.89 | 539.64 | 58.536 | 7.58 | 0.531 | 0.531 |  
+	 | k1    | 680.35 | 602.93 | 13.445 | 2.94 | 0.120 | 0.120 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23297, Wall: 0.233)
+   b) Spherical harmonic analysis... done (CPU: 4.7933, Wall: 4.799)
+   c) Spherical harmonic synthesis... done (CPU: 2.5676, Wall: 2.573)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14496, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.459, Wall: 18.463)
+done (CPU: 26.671, Wall: 26.687)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23297, Wall: 0.233)
+   b) Spherical harmonic analysis... done (CPU: 0.96085, Wall: 0.961)
+   c) Spherical harmonic synthesis... done (CPU: 1.1068, Wall: 1.107)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14496, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.605, Wall: 18.649)
+done (CPU: 21.525, Wall: 21.567)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.328, Wall: 19.329)
+  Storing: ** done (CPU: 0.675, Wall: 0.688)
+===>>> Total time spent on Iteration 1:  8:01.456 CPU,  3:21.509  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:12.046, Wall: 17.177)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:11.494, Wall: 17.023)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    | 102.76 | 114.58 | 2.298 | 4.16 | 0.085 | 1.681 |  
+	 | k1    | 238.35 | 193.88 | 0.429 | 0.74 | 0.014 | 0.263 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.227)
+   b) Spherical harmonic analysis... done (CPU: 1.2918, Wall: 1.29)
+   c) Spherical harmonic synthesis... done (CPU: 1.4167, Wall: 1.416)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.478, Wall: 18.48)
+done (CPU: 22.026, Wall: 22.027)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.95081, Wall: 0.951)
+   c) Spherical harmonic synthesis... done (CPU: 1.0948, Wall: 1.095)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21393, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14301, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.466, Wall: 18.515)
+done (CPU: 21.352, Wall: 21.401)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.261, Wall: 19.263)
+  Storing: ** done (CPU: 0.635, Wall: 0.636)
+===>>> Total time spent on Iteration 2:  5:51.391 CPU,  1:50.634  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:12.516, Wall: 17.143)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:16.572, Wall: 17.825)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 40.98 | 44.06 | 0.085 | 1.58 | 0.028 | 0.078 |  
+	 | k1    | 79.38 | 63.55 | 0.077 | 0.27 | 0.006 | 0.074 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2699, Wall: 1.271)
+   c) Spherical harmonic synthesis... done (CPU: 1.4377, Wall: 1.439)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.474, Wall: 18.478)
+done (CPU: 22.021, Wall: 22.026)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.9469, Wall: 0.947)
+   c) Spherical harmonic synthesis... done (CPU: 1.0918, Wall: 1.092)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.472, Wall: 18.477)
+done (CPU: 21.349, Wall: 21.354)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.343, Wall: 19.356)
+  Storing: ** done (CPU: 0.637, Wall: 0.638)
+===>>> Total time spent on Iteration 3:  5:58.509 CPU,  1:51.555  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:13.119, Wall: 17.361)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:13.942, Wall: 17.481)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 15.32 | 18.46 | 0.044 | 0.90 | 0.014 | 0.042 |  
+	 | k1    | 24.09 | 19.32 | 0.037 | 0.13 | 0.003 | 0.034 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2599, Wall: 1.261)
+   c) Spherical harmonic synthesis... done (CPU: 1.4117, Wall: 1.411)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.47, Wall: 18.472)
+done (CPU: 21.979, Wall: 21.981)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22693, Wall: 0.227)
+   b) Spherical harmonic analysis... done (CPU: 0.94287, Wall: 0.942)
+   c) Spherical harmonic synthesis... done (CPU: 1.0569, Wall: 1.058)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.213)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.461, Wall: 18.464)
+done (CPU: 21.299, Wall: 21.302)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.306, Wall: 19.347)
+  Storing: ** done (CPU: 0.639, Wall: 0.639)
+===>>> Total time spent on Iteration 4:  5:51.884 CPU,  1:51.224  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:13.862, Wall: 17.485)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:14.482, Wall: 17.569)
+	-----------------------------------------------------------
+	 | Convg |  du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 9.11 | 10.77 | 0.022 | 0.39 | 0.006 | 0.022 |  
+	 | k1    | 8.52 |  6.92 | 0.019 | 0.09 | 0.001 | 0.017 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22498, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2708, Wall: 1.295)
+   c) Spherical harmonic synthesis... done (CPU: 1.4098, Wall: 1.418)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.143)
+   e) coo_mat_mul 5º)...   done (CPU: 18.441, Wall: 18.448)
+done (CPU: 21.962, Wall: 22.004)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22693, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94482, Wall: 0.946)
+   c) Spherical harmonic synthesis... done (CPU: 1.0769, Wall: 1.077)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.444, Wall: 18.447)
+done (CPU: 21.304, Wall: 21.308)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.313, Wall: 19.367)
+  Storing: ** done (CPU: 0.641, Wall: 0.645)
+===>>> Total time spent on Iteration 5:  5:56.761 CPU,  1:51.475  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:13.766, Wall: 17.430)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:14.951, Wall: 17.597)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 6.15 | 6.99 | 0.010 | 0.16 | 0.003 | 0.010 |  
+	 | k1    | 3.51 | 2.90 | 0.009 | 0.06 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22803, Wall: 0.23)
+   b) Spherical harmonic analysis... done (CPU: 1.2668, Wall: 1.272)
+   c) Spherical harmonic synthesis... done (CPU: 1.4268, Wall: 1.437)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21411, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14282, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.471, Wall: 18.5)
+done (CPU: 22.008, Wall: 22.058)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.9519, Wall: 0.952)
+   c) Spherical harmonic synthesis... done (CPU: 1.0898, Wall: 1.09)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14185, Wall: 0.143)
+   e) coo_mat_mul 5º)...   done (CPU: 18.452, Wall: 18.454)
+done (CPU: 21.335, Wall: 21.337)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.303, Wall: 19.312)
+  Storing: ** done (CPU: 0.635, Wall: 0.636)
+===>>> Total time spent on Iteration 6:  5:57.987 CPU,  1:51.491  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:14.988, Wall: 17.628)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.6Gb).    c) Solve... done (CPU: 2:13.219, Wall: 17.367)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 3.57 | 3.93 | 0.005 | 0.07 | 0.001 | 0.005 |  
+	 | k1    | 1.55 | 1.31 | 0.005 | 0.03 | 0.000 | 0.004 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2607, Wall: 1.261)
+   c) Spherical harmonic synthesis... done (CPU: 1.4407, Wall: 1.446)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14307, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.445, Wall: 18.45)
+done (CPU: 21.989, Wall: 21.998)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22485, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.9519, Wall: 0.952)
+   c) Spherical harmonic synthesis... done (CPU: 1.1008, Wall: 1.101)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21411, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14087, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.444, Wall: 18.451)
+done (CPU: 21.335, Wall: 21.346)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.270, Wall: 19.273)
+  Storing: ** done (CPU: 0.635, Wall: 0.636)
+===>>> Total time spent on Iteration 7:  5:57.138 CPU,  1:51.387  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 43:35.149 CPU, 14:29.297  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 356.2 PJ, PE = 320.0 PJ, D = 3.287 TW.
+	D_BL = 2.614 TW, D_IT = 0.663 TW, D_SAL = -0.060 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 2.614 |  2.596  | 0.017 |  2.575  | 0.039 |  
+	 | D_IT | 0.663 |  0.431  | 0.233 |  0.526  | 0.138 |  
+	 | D    | 3.277 |  3.027  | 0.250 |  3.101  | 0.176 |  
+-----------------------------------------------------------------------------
+k1:	KE = 41.3 PJ, PE = 23.6 PJ, D = 0.298 TW.
+	D_BL = 0.236 TW, D_IT = 0.062 TW, D_SAL = -0.008 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.236 |  0.233  | 0.003 |  0.224  | 0.012 |  
+	 | D_IT | 0.062 |  0.034  | 0.028 |  0.050  | 0.011 |  
+	 | D    | 0.298 |  0.267  | 0.031 |  0.275  | 0.023 |  
+Cleaning up temporary files 
+[H[2JSaving data as 2012_11_25__22_38
+Loading topography file:  done.
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.2s, Wall:0.2s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.1s, Wall:1.1s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c.  Done.
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-3.0Gb; permanent-2.5Gb) 
+      Size of matrix factors 5.5Gb < 20.0Gb RAM+Swap. Running in-core with peak memory usage: 8.0Gb.
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 4:10.762, Wall: 1:41.323)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:13.640, Wall: 17.409)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 566.50 | 347.49 | 46.419 | 5.82 | 0.409 | 0.409 |  
+	 | k1    | 642.68 | 569.49 | 12.146 | 2.77 | 0.108 | 0.108 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23196, Wall: 0.233)
+   b) Spherical harmonic analysis... done (CPU: 4.7953, Wall: 4.825)
+   c) Spherical harmonic synthesis... done (CPU: 2.5686, Wall: 2.569)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.215, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14597, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.445, Wall: 18.445)
+done (CPU: 26.66, Wall: 26.691)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23096, Wall: 0.232)
+   b) Spherical harmonic analysis... done (CPU: 0.96686, Wall: 0.967)
+   c) Spherical harmonic synthesis... done (CPU: 1.1028, Wall: 1.103)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21597, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14499, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.45, Wall: 18.453)
+done (CPU: 21.371, Wall: 21.374)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.339, Wall: 19.368)
+  Storing: ** done (CPU: 0.670, Wall: 0.672)
+===>>> Total time spent on Iteration 1:  8:00.107 CPU,  3:20.662  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.067, Wall: 17.041)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.066, Wall: 17.024)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  91.04 |  95.72 | 2.454 | 3.98 | 0.065 | 1.818 |  
+	 | k1    | 214.42 | 173.54 | 0.506 | 0.93 | 0.013 | 0.289 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22699, Wall: 0.228)
+   b) Spherical harmonic analysis... done (CPU: 1.2888, Wall: 1.289)
+   c) Spherical harmonic synthesis... done (CPU: 1.4718, Wall: 1.472)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21393, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.438, Wall: 18.442)
+done (CPU: 22.039, Wall: 22.043)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94788, Wall: 0.948)
+   c) Spherical harmonic synthesis... done (CPU: 1.1168, Wall: 1.117)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.439, Wall: 18.442)
+done (CPU: 21.34, Wall: 21.344)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.311, Wall: 19.316)
+  Storing: ** done (CPU: 0.634, Wall: 0.635)
+===>>> Total time spent on Iteration 2:  5:54.989 CPU,  1:50.466  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:15.714, Wall: 17.613)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:15.035, Wall: 17.427)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 34.93 | 30.21 | 0.083 | 1.62 | 0.022 | 0.083 |  
+	 | k1    | 67.00 | 52.82 | 0.072 | 0.32 | 0.005 | 0.071 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.227)
+   b) Spherical harmonic analysis... done (CPU: 1.2649, Wall: 1.264)
+   c) Spherical harmonic synthesis... done (CPU: 1.3878, Wall: 1.388)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14307, Wall: 0.143)
+   e) coo_mat_mul 5º)...   done (CPU: 18.447, Wall: 18.485)
+done (CPU: 21.939, Wall: 21.977)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22498, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.9469, Wall: 0.947)
+   c) Spherical harmonic synthesis... done (CPU: 1.1149, Wall: 1.115)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14087, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.426, Wall: 18.428)
+done (CPU: 21.325, Wall: 21.327)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.321, Wall: 19.322)
+  Storing: ** done (CPU: 0.634, Wall: 0.635)
+===>>> Total time spent on Iteration 3:  5:59.438 CPU,  1:51.338  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:14.041, Wall: 17.277)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:14.995, Wall: 17.430)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 12.43 | 11.87 | 0.042 | 0.87 | 0.011 | 0.042 |  
+	 | k1    | 23.00 | 17.66 | 0.035 | 0.14 | 0.002 | 0.033 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2628, Wall: 1.263)
+   c) Spherical harmonic synthesis... done (CPU: 1.3888, Wall: 1.389)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.449, Wall: 18.452)
+done (CPU: 21.942, Wall: 21.945)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.95483, Wall: 0.955)
+   c) Spherical harmonic synthesis... done (CPU: 1.1158, Wall: 1.114)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14294, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.447, Wall: 18.449)
+done (CPU: 21.358, Wall: 21.359)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.364, Wall: 19.367)
+  Storing: ** done (CPU: 0.639, Wall: 0.640)
+===>>> Total time spent on Iteration 4:  5:58.115 CPU,  1:51.101  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.982, Wall: 17.285)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:13.746, Wall: 17.221)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.37 | 5.08 | 0.020 | 0.43 | 0.005 | 0.020 |  
+	 | k1    | 8.27 | 6.36 | 0.018 | 0.10 | 0.001 | 0.017 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2618, Wall: 1.262)
+   c) Spherical harmonic synthesis... done (CPU: 1.4238, Wall: 1.433)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21289, Wall: 0.217)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.45, Wall: 18.469)
+done (CPU: 21.975, Wall: 22.01)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22498, Wall: 0.224)
+   b) Spherical harmonic analysis... done (CPU: 0.97083, Wall: 0.971)
+   c) Spherical harmonic synthesis... done (CPU: 1.0709, Wall: 1.071)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14209, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.467, Wall: 18.509)
+done (CPU: 21.346, Wall: 21.387)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.378, Wall: 19.379)
+  Storing: ** done (CPU: 0.641, Wall: 0.651)
+===>>> Total time spent on Iteration 5:  5:57.160 CPU,  1:51.068  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.567, Wall: 17.135)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:13.101, Wall: 17.197)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.96 | 2.37 | 0.009 | 0.17 | 0.002 | 0.009 |  
+	 | k1    | 2.68 | 2.11 | 0.009 | 0.07 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22388, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2629, Wall: 1.264)
+   c) Spherical harmonic synthesis... done (CPU: 1.397, Wall: 1.403)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14111, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.481, Wall: 18.535)
+done (CPU: 21.978, Wall: 22.042)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22583, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 0.95386, Wall: 0.953)
+   c) Spherical harmonic synthesis... done (CPU: 1.0798, Wall: 1.08)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14307, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.503, Wall: 18.53)
+done (CPU: 21.377, Wall: 21.403)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.346, Wall: 19.347)
+  Storing: ** done (CPU: 0.634, Wall: 0.635)
+===>>> Total time spent on Iteration 6:  5:54.397 CPU,  1:50.938  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:14.525, Wall: 17.361)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:18.131, Wall: 17.936)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 0.99 | 1.21 | 0.004 | 0.08 | 0.001 | 0.004 |  
+	 | k1    | 1.06 | 1.05 | 0.005 | 0.04 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22485, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 1.2688, Wall: 1.269)
+   c) Spherical harmonic synthesis... done (CPU: 1.4478, Wall: 1.447)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21509, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14087, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.444, Wall: 18.452)
+done (CPU: 22, Wall: 22.007)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.2251, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 0.95386, Wall: 0.954)
+   c) Spherical harmonic synthesis... done (CPU: 1.074, Wall: 1.074)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21411, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14282, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.444, Wall: 18.448)
+done (CPU: 21.311, Wall: 21.314)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.353, Wall: 19.363)
+  Storing: ** done (CPU: 0.638, Wall: 0.639)
+===>>> Total time spent on Iteration 7:  6:00.794 CPU,  1:51.714  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 43:45.021 CPU, 14:27.309  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 233.0 PJ, PE = 203.7 PJ, D = 2.960 TW.
+	D_BL = 1.639 TW, D_IT = 1.315 TW, D_SAL = -0.058 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.639 |  1.631  | 0.009 |  1.618  | 0.021 |  
+	 | D_IT | 1.315 |  0.250  | 1.065 |  0.632  | 0.683 |  
+	 | D    | 2.954 |  1.880  | 1.074 |  2.250  | 0.704 |  
+-----------------------------------------------------------------------------
+k1:	KE = 37.1 PJ, PE = 21.0 PJ, D = 0.325 TW.
+	D_BL = 0.197 TW, D_IT = 0.128 TW, D_SAL = -0.008 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.197 |  0.195  | 0.002 |  0.188  | 0.009 |  
+	 | D_IT | 0.128 |  0.018  | 0.110 |  0.073  | 0.055 |  
+	 | D    | 0.325 |  0.213  | 0.112 |  0.260  | 0.064 |  
+Cleaning up temporary files 
+[H[2JSaving data as 2012_11_27__14_02
+Loading topography file:  done.
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file:  done.
+done (CPU: 1.057, Wall: 1.072)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.1s, Wall:1.1s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c.  Done.
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-3.0Gb; permanent-2.5Gb) 
+      Size of matrix factors 5.5Gb < 20.0Gb RAM+Swap. Running in-core with peak memory usage: 8.0Gb.
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 4:08.379, Wall: 1:41.491)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:08.479, Wall: 16.815)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 642.04 | 420.66 | 51.138 | 6.52 | 0.457 | 0.457 |  
+	 | k1    | 659.79 | 584.65 | 12.467 | 2.84 | 0.111 | 0.111 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23294, Wall: 0.233)
+   b) Spherical harmonic analysis... done (CPU: 4.7893, Wall: 4.815)
+   c) Spherical harmonic synthesis... done (CPU: 2.5716, Wall: 2.588)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21698, Wall: 0.22)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14697, Wall: 0.15)
+   e) coo_mat_mul 5º)...   done (CPU: 18.506, Wall: 18.559)
+done (CPU: 26.726, Wall: 26.827)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23294, Wall: 0.234)
+   b) Spherical harmonic analysis... done (CPU: 0.96085, Wall: 0.961)
+   c) Spherical harmonic synthesis... done (CPU: 1.1218, Wall: 1.122)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21796, Wall: 0.218)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.146, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.538, Wall: 18.604)
+done (CPU: 21.476, Wall: 21.541)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.428, Wall: 19.441)
+  Storing: ** done (CPU: 0.668, Wall: 0.669)
+===>>> Total time spent on Iteration 1:  7:51.350 CPU,  3:20.701  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.043, Wall: 17.507)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:14.911, Wall: 17.850)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  98.26 | 103.06 | 2.206 | 4.04 | 0.073 | 1.594 |  
+	 | k1    | 223.75 | 181.15 | 0.466 | 0.87 | 0.013 | 0.282 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.228)
+   b) Spherical harmonic analysis... done (CPU: 1.3048, Wall: 1.307)
+   c) Spherical harmonic synthesis... done (CPU: 1.4427, Wall: 1.443)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14496, Wall: 0.145)
+   e) coo_mat_mul 5º)...   done (CPU: 18.637, Wall: 18.661)
+done (CPU: 22.228, Wall: 22.256)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22699, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94989, Wall: 0.95)
+   c) Spherical harmonic synthesis... done (CPU: 1.0978, Wall: 1.099)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.629, Wall: 18.644)
+done (CPU: 21.518, Wall: 21.531)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.428, Wall: 19.433)
+  Storing: ** done (CPU: 0.642, Wall: 0.642)
+===>>> Total time spent on Iteration 2:  5:54.226 CPU,  1:52.514  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:11.839, Wall: 17.471)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:09.141, Wall: 17.125)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 37.81 | 35.26 | 0.083 | 1.60 | 0.024 | 0.083 |  
+	 | k1    | 71.35 | 56.41 | 0.071 | 0.30 | 0.005 | 0.072 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2678, Wall: 1.268)
+   c) Spherical harmonic synthesis... done (CPU: 1.4078, Wall: 1.409)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21289, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.462, Wall: 18.47)
+done (CPU: 21.978, Wall: 21.987)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22595, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94397, Wall: 0.944)
+   c) Spherical harmonic synthesis... done (CPU: 1.0908, Wall: 1.091)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21399, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.48, Wall: 18.492)
+done (CPU: 21.352, Wall: 21.363)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.342, Wall: 19.344)
+  Storing: ** done (CPU: 0.636, Wall: 0.637)
+===>>> Total time spent on Iteration 3:  5:48.167 CPU,  1:51.227  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:10.490, Wall: 17.280)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.187, Wall: 17.929)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 13.74 | 14.36 | 0.042 | 0.88 | 0.012 | 0.042 |  
+	 | k1    | 21.69 | 17.09 | 0.034 | 0.14 | 0.002 | 0.033 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 1.2638, Wall: 1.265)
+   c) Spherical harmonic synthesis... done (CPU: 1.3809, Wall: 1.387)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21594, Wall: 0.216)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14197, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.511, Wall: 18.517)
+done (CPU: 21.997, Wall: 22.01)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94983, Wall: 0.95)
+   c) Spherical harmonic synthesis... done (CPU: 1.0948, Wall: 1.095)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21594, Wall: 0.216)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.513, Wall: 18.517)
+done (CPU: 21.399, Wall: 21.402)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.351, Wall: 19.389)
+  Storing: ** done (CPU: 0.636, Wall: 0.637)
+===>>> Total time spent on Iteration 4:  5:50.989 CPU,  1:51.839  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:08.053, Wall: 16.797)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:13.964, Wall: 17.761)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 5.23 | 6.36 | 0.021 | 0.41 | 0.006 | 0.020 |  
+	 | k1    | 7.52 | 5.96 | 0.018 | 0.09 | 0.001 | 0.017 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22485, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 1.2717, Wall: 1.272)
+   c) Spherical harmonic synthesis... done (CPU: 1.3988, Wall: 1.4)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14099, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.468, Wall: 18.47)
+done (CPU: 21.98, Wall: 21.982)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22498, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 0.94385, Wall: 0.944)
+   c) Spherical harmonic synthesis... done (CPU: 1.1008, Wall: 1.101)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21497, Wall: 0.215)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14294, Wall: 0.144)
+   e) coo_mat_mul 5º)...   done (CPU: 18.49, Wall: 18.551)
+done (CPU: 21.377, Wall: 21.439)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.384, Wall: 19.391)
+  Storing: ** done (CPU: 0.636, Wall: 0.637)
+===>>> Total time spent on Iteration 5:  5:48.666 CPU,  1:51.056  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:09.320, Wall: 16.965)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:12.753, Wall: 18.117)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 3.21 | 3.63 | 0.010 | 0.17 | 0.003 | 0.010 |  
+	 | k1    | 2.90 | 2.33 | 0.009 | 0.06 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.23389, Wall: 0.234)
+   b) Spherical harmonic analysis... done (CPU: 1.2937, Wall: 1.293)
+   c) Spherical harmonic synthesis... done (CPU: 1.3977, Wall: 1.405)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21387, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14209, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.536, Wall: 18.624)
+done (CPU: 22.078, Wall: 22.172)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.96387, Wall: 0.964)
+   c) Spherical harmonic synthesis... done (CPU: 1.1257, Wall: 1.129)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21411, Wall: 0.214)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14087, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.479, Wall: 18.484)
+done (CPU: 21.409, Wall: 21.418)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.470, Wall: 19.476)
+  Storing: ** done (CPU: 0.638, Wall: 0.646)
+===>>> Total time spent on Iteration 6:  5:47.670 CPU,  1:52.094  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:07.658, Wall: 16.809)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (5.5Gb).    c) Solve... done (CPU: 2:08.599, Wall: 17.107)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.78 | 1.97 | 0.005 | 0.08 | 0.001 | 0.004 |  
+	 | k1    | 1.24 | 0.99 | 0.005 | 0.04 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta. 
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22485, Wall: 0.225)
+   b) Spherical harmonic analysis... done (CPU: 1.27, Wall: 1.27)
+   c) Spherical harmonic synthesis... done (CPU: 1.4399, Wall: 1.44)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21704, Wall: 0.217)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14185, Wall: 0.142)
+   e) coo_mat_mul 5º)...   done (CPU: 18.552, Wall: 18.552)
+done (CPU: 22.107, Wall: 22.107)
+   a) Interpolate h to the reg [1440 x 720] lat-lon grid...   done (CPU: 0.22607, Wall: 0.226)
+   b) Spherical harmonic analysis... done (CPU: 0.94775, Wall: 0.948)
+   c) Spherical harmonic synthesis... done (CPU: 1.0649, Wall: 1.065)
+   d) Interpolate hsal onto the original grid... done (CPU: 0.21802, Wall: 0.217)
+   e) Calculate beta (averaged over 5º)... matgen   done (CPU: 0.14087, Wall: 0.141)
+   e) coo_mat_mul 5º)...   done (CPU: 18.544, Wall: 18.593)
+done (CPU: 21.397, Wall: 21.446)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.487, Wall: 19.495)
+  Storing: ** done (CPU: 0.642, Wall: 0.643)
+===>>> Total time spent on Iteration 7:  5:45.940 CPU,  1:50.853  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 42:47.031 CPU, 14:30.309  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 279.4 PJ, PE = 247.0 PJ, D = 3.135 TW.
+	D_BL = 2.026 TW, D_IT = 1.103 TW, D_SAL = -0.062 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 2.026 |  2.014  | 0.011 |  1.999  | 0.027 |  
+	 | D_IT | 1.103 |  0.289  | 0.813 |  0.621  | 0.482 |  
+	 | D    | 3.129 |  2.304  | 0.825 |  2.619  | 0.509 |  
+-----------------------------------------------------------------------------
+k1:	KE = 38.1 PJ, PE = 21.8 PJ, D = 0.324 TW.
+	D_BL = 0.208 TW, D_IT = 0.115 TW, D_SAL = -0.008 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.208 |  0.206  | 0.002 |  0.199  | 0.010 |  
+	 | D_IT | 0.115 |  0.022  | 0.093 |  0.073  | 0.042 |  
+	 | D    | 0.324 |  0.228  | 0.096 |  0.272  | 0.052 |  
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_21__23_31
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.414, Wall: 0.418)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.2s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 5.9Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:10.626, Wall: 25.670)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 627.59 | 399.64 | 44.544 | 4.83 | 0.385 | 0.385 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 12.947, Wall: 9.462)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.132, Wall: 4.150)
+  Storing: * done (CPU: 0.328, Wall: 0.330)
+===>>> Total time spent on Iteration 1:  2:43.076 CPU, 47.402  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.303, Wall: 11.632)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 67.15 | 72.37 | 1.351 | 4.02 | 0.055 | 0.975 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.1536, Wall: 4.036)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.116, Wall: 4.117)
+  Storing: * done (CPU: 0.310, Wall: 0.311)
+===>>> Total time spent on Iteration 2:  1:55.095 CPU, 27.013  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.377, Wall: 11.218)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 36.69 | 27.06 | 0.086 | 1.41 | 0.021 | 0.084 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.9876, Wall: 4.005)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.118, Wall: 4.146)
+  Storing: * done (CPU: 0.313, Wall: 0.315)
+===>>> Total time spent on Iteration 3:  1:52.538 CPU, 27.030  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.284, Wall: 11.621)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 18.79 | 11.02 | 0.041 | 0.73 | 0.010 | 0.040 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1448, Wall: 3.988)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.184, Wall: 4.184)
+  Storing: * done (CPU: 0.313, Wall: 0.314)
+===>>> Total time spent on Iteration 4:  1:52.699 CPU, 27.049  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:29.212, Wall: 11.974)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 9.09 | 4.90 | 0.019 | 0.35 | 0.004 | 0.018 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1288, Wall: 3.965)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.159, Wall: 4.159)
+  Storing: * done (CPU: 0.314, Wall: 0.315)
+===>>> Total time spent on Iteration 5:  1:55.067 CPU, 27.370  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.563, Wall: 11.376)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.35 | 2.37 | 0.009 | 0.14 | 0.002 | 0.008 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 10.47, Wall: 4.343)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.155, Wall: 4.155)
+  Storing: * done (CPU: 0.314, Wall: 0.316)
+===>>> Total time spent on Iteration 6:  1:51.781 CPU, 27.388  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.299, Wall: 11.149)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 2.07 | 1.23 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.8548, Wall: 4.021)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 4.152, Wall: 4.152)
+  Storing: * done (CPU: 0.313, Wall: 0.313)
+===>>> Total time spent on Iteration 7:  1:52.537 CPU, 26.947  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 14:02.842 CPU, 3:30.246  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 213.1 PJ, PE = 183.1 PJ, D = 2.832 TW.
+	D_BL = 1.274 TW, D_IT = 1.552 TW, D_SAL = -0.043 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.274 |  1.266  | 0.007 |  1.258  | 0.016 |  
+	 | D_IT | 1.552 |  0.620  | 0.932 |  0.946  | 0.606 |  
+	 | D    | 2.826 |  1.886  | 0.940 |  2.205  | 0.621 |  
+ 
+===>>> Calculation of domain integrals: 11:46.080 CPU, 11:46.184  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_22__12_42
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.412, Wall: 0.413)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.2s, Wall:0.2s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.1s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 6.0Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 3:08.537, Wall: 35.963)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:21.755, Wall: 20.856)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 646.93 | 406.56 | 45.467 | 5.04 | 0.395 | 0.395 |  
+	 | k1    | 648.56 | 574.51 | 12.282 | 2.77 | 0.111 | 0.111 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 14.121, Wall: 8.793)
+ 2. for k1: done (CPU: 8.3397, Wall: 3.505)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.178, Wall: 19.186)
+  Storing: ** done (CPU: 0.657, Wall: 0.659)
+===>>> Total time spent on Iteration 1:  6:38.877 CPU,  1:45.154  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:42.696, Wall: 24.260)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:22.396, Wall: 20.864)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  69.62 |  76.13 | 1.398 | 4.02 | 0.057 | 1.000 |  
+	 | k1    | 213.94 | 172.22 | 0.564 | 0.90 | 0.014 | 0.292 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.1616, Wall: 4.209)
+ 2. for k1: done (CPU: 9.5475, Wall: 3.702)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.175, Wall: 19.212)
+  Storing: ** done (CPU: 0.607, Wall: 0.608)
+===>>> Total time spent on Iteration 2:  6:08.850 CPU,  1:26.329  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:34.113, Wall: 22.868)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.533, Wall: 11.590)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 36.76 | 27.68 | 0.084 | 1.39 | 0.021 | 0.082 |  
+	 | k1    | 64.68 | 50.42 | 0.082 | 0.32 | 0.006 | 0.085 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.2607, Wall: 3.928)
+ 2. for k1: done (CPU: 7.3759, Wall: 3.358)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.197, Wall: 19.207)
+  Storing: ** done (CPU: 0.611, Wall: 0.612)
+===>>> Total time spent on Iteration 3:  5:00.243 CPU,  1:15.760  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.160, Wall: 11.531)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.768, Wall: 11.491)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 18.46 | 11.17 | 0.041 | 0.73 | 0.010 | 0.041 |  
+	 | k1    | 26.73 | 20.54 | 0.038 | 0.14 | 0.003 | 0.040 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.0565, Wall: 4.034)
+ 2. for k1: done (CPU: 7.5878, Wall: 3.379)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.253, Wall: 19.287)
+  Storing: ** done (CPU: 0.615, Wall: 0.622)
+===>>> Total time spent on Iteration 4:  3:57.067 CPU,  1:03.712  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:29.293, Wall: 11.741)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:29.476, Wall: 11.829)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 8.93 | 4.96 | 0.019 | 0.34 | 0.005 | 0.019 |  
+	 | k1    | 9.33 | 7.18 | 0.018 | 0.08 | 0.001 | 0.019 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.5847, Wall: 4.023)
+ 2. for k1: done (CPU: 7.4229, Wall: 3.373)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.216, Wall: 19.221)
+  Storing: ** done (CPU: 0.607, Wall: 0.608)
+===>>> Total time spent on Iteration 5:  3:59.484 CPU,  1:03.972  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.049, Wall: 11.524)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.194, Wall: 11.592)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.20 | 2.41 | 0.009 | 0.14 | 0.002 | 0.008 |  
+	 | k1    | 2.75 | 2.34 | 0.009 | 0.05 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.5317, Wall: 3.97)
+ 2. for k1: done (CPU: 7.5918, Wall: 3.354)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.293, Wall: 19.340)
+  Storing: ** done (CPU: 0.610, Wall: 0.612)
+===>>> Total time spent on Iteration 6:  4:03.057 CPU,  1:03.707  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:29.022, Wall: 11.689)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.819, Wall: 11.668)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.97 | 1.25 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	 | k1    | 1.25 | 1.16 | 0.005 | 0.03 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.9326, Wall: 3.982)
+ 2. for k1: done (CPU: 7.1039, Wall: 3.365)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.265, Wall: 19.330)
+  Storing: ** done (CPU: 0.615, Wall: 0.615)
+===>>> Total time spent on Iteration 7:  3:58.254 CPU,  1:04.005  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 33:45.859 CPU, 8:42.658  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 221.0 PJ, PE = 190.6 PJ, D = 2.867 TW.
+	D_BL = 1.376 TW, D_IT = 1.485 TW, D_SAL = -0.043 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.376 |  1.368  | 0.008 |  1.358  | 0.018 |  
+	 | D_IT | 1.485 |  0.603  | 0.883 |  0.910  | 0.575 |  
+	 | D    | 2.861 |  1.970  | 0.891 |  2.268  | 0.593 |  
+-----------------------------------------------------------------------------
+k1:	KE = 39.3 PJ, PE = 22.7 PJ, D = 0.325 TW.
+	D_BL = 0.198 TW, D_IT = 0.126 TW, D_SAL = -0.007 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.198 |  0.196  | 0.002 |  0.188  | 0.010 |  
+	 | D_IT | 0.126 |  0.026  | 0.100 |  0.091  | 0.034 |  
+	 | D    | 0.324 |  0.222  | 0.102 |  0.279  | 0.045 |  
+ 
+===>>> Calculation of domain integrals: 11:45.066 CPU, 11:45.409  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_22__20_41
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.413, Wall: 0.416)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.5Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 5.9Gb.
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 2:13.990, Wall: 25.934)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:25.816, Wall: 11.239)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 574.58 | 377.40 | 42.269 | 4.48 | 0.362 | 0.362 |  
+	 | k1    | 645.81 | 572.08 | 12.137 | 2.76 | 0.110 | 0.110 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 12.791, Wall: 8.676)
+ 2. for k1: done (CPU: 7.7988, Wall: 3.349)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.222, Wall: 19.274)
+  Storing: ** done (CPU: 0.641, Wall: 0.643)
+===>>> Total time spent on Iteration 1:  4:45.622 CPU,  1:22.768  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:24.662, Wall: 11.941)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.151, Wall: 10.958)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  60.83 |  63.34 | 1.138 | 3.98 | 0.048 | 0.826 |  
+	 | k1    | 212.08 | 170.15 | 0.609 | 0.92 | 0.014 | 0.296 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.0878, Wall: 4.354)
+ 2. for k1: done (CPU: 7.3279, Wall: 3.331)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.235, Wall: 19.236)
+  Storing: ** done (CPU: 0.610, Wall: 0.613)
+===>>> Total time spent on Iteration 2:  3:52.016 CPU,  1:04.064  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.568, Wall: 10.941)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.343, Wall: 10.862)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 33.27 | 23.96 | 0.085 | 1.30 | 0.019 | 0.085 |  
+	 | k1    | 74.06 | 56.87 | 0.086 | 0.35 | 0.007 | 0.089 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.7978, Wall: 3.913)
+ 2. for k1: done (CPU: 8.4017, Wall: 3.337)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.181, Wall: 19.216)
+  Storing: ** done (CPU: 0.602, Wall: 0.603)
+===>>> Total time spent on Iteration 3:  3:45.941 CPU,  1:02.061  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.006, Wall: 10.861)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.262, Wall: 10.920)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 16.45 |  9.62 | 0.038 | 0.66 | 0.009 | 0.037 |  
+	 | k1    | 31.97 | 24.57 | 0.040 | 0.14 | 0.003 | 0.042 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.0397, Wall: 4.023)
+ 2. for k1: done (CPU: 7.9348, Wall: 3.361)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.197, Wall: 19.219)
+  Storing: ** done (CPU: 0.609, Wall: 0.616)
+===>>> Total time spent on Iteration 4:  3:49.163 CPU,  1:02.310  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.622, Wall: 10.935)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.366, Wall: 11.003)
+	-----------------------------------------------------------
+	 | Convg |   du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    |  8.05 | 4.29 | 0.018 | 0.31 | 0.004 | 0.017 |  
+	 | k1    | 11.37 | 8.76 | 0.019 | 0.08 | 0.001 | 0.020 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.0579, Wall: 4.016)
+ 2. for k1: done (CPU: 8.2767, Wall: 3.34)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.208, Wall: 19.252)
+  Storing: ** done (CPU: 0.611, Wall: 0.611)
+===>>> Total time spent on Iteration 5:  3:47.619 CPU,  1:02.416  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.189, Wall: 11.001)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:24.380, Wall: 11.060)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 3.89 | 2.07 | 0.008 | 0.13 | 0.002 | 0.008 |  
+	 | k1    | 3.12 | 2.57 | 0.009 | 0.05 | 0.001 | 0.010 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.0336, Wall: 4.027)
+ 2. for k1: done (CPU: 7.1139, Wall: 3.359)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.228, Wall: 19.275)
+  Storing: ** done (CPU: 0.611, Wall: 0.612)
+===>>> Total time spent on Iteration 6:  3:49.855 CPU,  1:02.554  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:25.124, Wall: 11.177)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.994, Wall: 10.970)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.87 | 1.05 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	 | k1    | 1.30 | 1.19 | 0.005 | 0.03 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1528, Wall: 3.997)
+ 2. for k1: done (CPU: 7.7339, Wall: 3.404)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.156, Wall: 19.156)
+  Storing: ** done (CPU: 0.603, Wall: 0.603)
+===>>> Total time spent on Iteration 7:  3:48.822 CPU,  1:02.660  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 27:39.060 CPU, 7:38.856  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 191.3 PJ, PE = 162.9 PJ, D = 2.744 TW.
+	D_BL = 1.071 TW, D_IT = 1.667 TW, D_SAL = -0.036 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.071 |  1.065  | 0.007 |  1.057  | 0.015 |  
+	 | D_IT | 1.667 |  0.623  | 1.044 |  0.991  | 0.676 |  
+	 | D    | 2.739 |  1.688  | 1.051 |  2.048  | 0.691 |  
+-----------------------------------------------------------------------------
+k1:	KE = 38.8 PJ, PE = 22.3 PJ, D = 0.333 TW.
+	D_BL = 0.188 TW, D_IT = 0.144 TW, D_SAL = -0.007 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.188 |  0.186  | 0.002 |  0.178  | 0.010 |  
+	 | D_IT | 0.144 |  0.017  | 0.127 |  0.099  | 0.045 |  
+	 | D    | 0.332 |  0.203  | 0.129 |  0.277  | 0.055 |  
+ 
+===>>> Calculation of domain integrals: 11:46.170 CPU, 11:46.825  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_23__19_07
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [2.04E+06 x 2.04E+06] sparse matrix (nnz = 1.28E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-1.5Gb; permanent-1.2Gb) 
+      Size of matrix factors 1.7Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 3.0Gb.
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 1:04.926, Wall: 12.526)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 41.160, Wall: 5.469)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 577.00 | 421.76 | 47.797 | 6.24 | 0.345 | 0.345 |  
+	 | k1    | 771.13 | 676.96 | 14.909 | 3.05 | 0.109 | 0.109 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 5.0222, Wall: 3.405)
+ 2. for k1: done (CPU: 4.7643, Wall: 2.848)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.071, Wall: 10.097)
+  Storing: ** done (CPU: 0.259, Wall: 0.261)
+===>>> Total time spent on Iteration 1:  2:20.474 CPU, 41.801  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 40.482, Wall: 5.400)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 43.256, Wall: 5.796)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  80.89 | 140.27 | 0.258 | 2.69 | 0.046 | 0.243 |  
+	 | k1    | 274.13 | 240.12 | 0.338 | 0.67 | 0.016 | 0.257 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.1841, Wall: 4.454)
+ 2. for k1: done (CPU: 4.4733, Wall: 2.776)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.073, Wall: 10.074)
+  Storing: ** done (CPU: 0.241, Wall: 0.242)
+===>>> Total time spent on Iteration 2:  2:00.020 CPU, 35.849  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.829, Wall: 5.693)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.321, Wall: 5.572)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 37.21 | 58.85 | 0.084 | 0.93 | 0.018 | 0.075 |  
+	 | k1    | 86.34 | 75.46 | 0.095 | 0.27 | 0.007 | 0.105 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.337, Wall: 4.406)
+ 2. for k1: done (CPU: 5.1242, Wall: 2.817)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 9.999, Wall: 10.015)
+  Storing: ** done (CPU: 0.241, Wall: 0.242)
+===>>> Total time spent on Iteration 3:  2:04.635 CPU, 35.916  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 41.810, Wall: 5.526)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 41.922, Wall: 5.544)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 20.80 | 24.53 | 0.038 | 0.43 | 0.008 | 0.035 |  
+	 | k1    | 26.76 | 23.27 | 0.042 | 0.11 | 0.003 | 0.046 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.218, Wall: 4.571)
+ 2. for k1: done (CPU: 4.6873, Wall: 2.828)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.039, Wall: 10.043)
+  Storing: ** done (CPU: 0.241, Wall: 0.241)
+===>>> Total time spent on Iteration 4:  2:04.700 CPU, 36.033  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.480, Wall: 5.611)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 43.010, Wall: 5.677)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 11.00 |  9.97 | 0.018 | 0.22 | 0.004 | 0.017 |  
+	 | k1    | 10.19 | 10.50 | 0.019 | 0.05 | 0.001 | 0.021 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.421, Wall: 4.499)
+ 2. for k1: done (CPU: 4.3624, Wall: 2.88)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.020, Wall: 10.026)
+  Storing: ** done (CPU: 0.240, Wall: 0.245)
+===>>> Total time spent on Iteration 5:  2:06.167 CPU, 36.102  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.039, Wall: 5.581)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.459, Wall: 5.697)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 5.61 | 4.55 | 0.009 | 0.11 | 0.002 | 0.008 |  
+	 | k1    | 4.36 | 4.21 | 0.009 | 0.02 | 0.001 | 0.010 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.415, Wall: 4.436)
+ 2. for k1: done (CPU: 4.8163, Wall: 2.808)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 9.999, Wall: 10.010)
+  Storing: ** done (CPU: 0.238, Wall: 0.240)
+===>>> Total time spent on Iteration 6:  2:01.924 CPU, 35.900  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 42.697, Wall: 5.659)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 59.054, Wall: 8.218)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 2.81 | 2.20 | 0.004 | 0.05 | 0.001 | 0.004 |  
+	 | k1    | 1.92 | 2.46 | 0.005 | 0.01 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 6.3101, Wall: 4.457)
+ 2. for k1: done (CPU: 4.6633, Wall: 2.923)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.010, Wall: 10.010)
+  Storing: ** done (CPU: 0.240, Wall: 0.242)
+===>>> Total time spent on Iteration 7:  2:22.881 CPU, 38.627  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 15:00.828 CPU, 4:20.256  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 183.7 PJ, PE = 157.3 PJ, D = 2.614 TW.
+	D_BL = 0.890 TW, D_IT = 1.719 TW, D_SAL = 0.004 GW, D_f = -0.027 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.890 |  0.884  | 0.006 |  0.878  | 0.012 |  
+	 | D_IT | 1.719 |  0.626  | 1.093 |  1.015  | 0.704 |  
+	 | D    | 2.609 |  1.510  | 1.100 |  1.893  | 0.717 |  
+-----------------------------------------------------------------------------
+k1:	KE = 40.1 PJ, PE = 23.7 PJ, D = 0.341 TW.
+	D_BL = 0.171 TW, D_IT = 0.170 TW, D_SAL = 0.001 GW, D_f = -0.375 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.171 |  0.169  | 0.002 |  0.158  | 0.013 |  
+	 | D_IT | 0.170 |  0.012  | 0.158 |  0.115  | 0.055 |  
+	 | D    | 0.341 |  0.181  | 0.160 |  0.273  | 0.068 |  
+ 
+===>>> Calculation of domain integrals: 29.408 CPU, 29.413  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_23__21_47
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [2.04E+06 x 2.04E+06] sparse matrix (nnz = 1.28E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-1.5Gb; permanent-1.2Gb) 
+      Size of matrix factors 1.7Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 3.0Gb.
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 1:10.770, Wall: 13.960)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 56.572, Wall: 8.413)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 577.00 | 421.76 | 47.797 | 6.24 | 0.345 | 0.345 |  
+	 | k1    | 771.13 | 676.96 | 14.909 | 3.05 | 0.109 | 0.109 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 5.3212, Wall: 3.324)
+ 2. for k1: done (CPU: 5.0692, Wall: 3.332)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.190, Wall: 10.201)
+  Storing: ** done (CPU: 0.264, Wall: 0.264)
+===>>> Total time spent on Iteration 1:  2:46.542 CPU, 46.842  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 45.199, Wall: 6.617)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 44.022, Wall: 6.339)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  80.89 | 140.27 | 0.258 | 2.69 | 0.046 | 0.243 |  
+	 | k1    | 274.13 | 240.12 | 0.338 | 0.67 | 0.016 | 0.257 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 5.2592, Wall: 3.431)
+ 2. for k1: done (CPU: 4.3623, Wall: 2.77)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.179, Wall: 10.222)
+  Storing: ** done (CPU: 0.245, Wall: 0.245)
+===>>> Total time spent on Iteration 2:  2:07.273 CPU, 37.039  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 45.423, Wall: 6.513)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 46.257, Wall: 6.712)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 37.21 | 58.85 | 0.084 | 0.93 | 0.018 | 0.075 |  
+	 | k1    | 86.34 | 75.46 | 0.095 | 0.27 | 0.007 | 0.105 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 4.7753, Wall: 3.382)
+ 2. for k1: done (CPU: 4.3533, Wall: 2.71)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.110, Wall: 10.116)
+  Storing: ** done (CPU: 0.244, Wall: 0.245)
+===>>> Total time spent on Iteration 3:  2:08.636 CPU, 36.937  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 47.085, Wall: 6.834)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 45.113, Wall: 6.467)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 20.80 | 24.53 | 0.038 | 0.43 | 0.008 | 0.035 |  
+	 | k1    | 26.76 | 23.27 | 0.042 | 0.11 | 0.003 | 0.046 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 4.8842, Wall: 3.43)
+ 2. for k1: done (CPU: 5.2512, Wall: 2.869)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.058, Wall: 10.064)
+  Storing: ** done (CPU: 0.238, Wall: 0.240)
+===>>> Total time spent on Iteration 4:  2:12.070 CPU, 37.104  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 46.940, Wall: 6.880)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 1:00.707, Wall: 8.904)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 11.00 |  9.97 | 0.018 | 0.22 | 0.004 | 0.017 |  
+	 | k1    | 10.19 | 10.50 | 0.019 | 0.05 | 0.001 | 0.021 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 5.8691, Wall: 3.563)
+ 2. for k1: done (CPU: 5.2042, Wall: 2.906)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.252, Wall: 10.276)
+  Storing: ** done (CPU: 0.246, Wall: 0.246)
+===>>> Total time spent on Iteration 5:  2:27.819 CPU, 40.027  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 41.011, Wall: 5.469)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 40.646, Wall: 5.441)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 5.61 | 4.55 | 0.009 | 0.11 | 0.002 | 0.008 |  
+	 | k1    | 4.36 | 4.21 | 0.009 | 0.02 | 0.001 | 0.010 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 4.6543, Wall: 3.294)
+ 2. for k1: done (CPU: 4.4874, Wall: 2.64)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 10.045, Wall: 10.076)
+  Storing: ** done (CPU: 0.242, Wall: 0.243)
+===>>> Total time spent on Iteration 6:  1:58.396 CPU, 34.227  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 40.420, Wall: 5.454)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (1.7Gb).    c) Solve... done (CPU: 40.941, Wall: 5.448)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 2.81 | 2.20 | 0.004 | 0.05 | 0.001 | 0.004 |  
+	 | k1    | 1.92 | 2.46 | 0.005 | 0.01 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 5.0522, Wall: 3.244)
+ 2. for k1: done (CPU: 4.0734, Wall: 2.603)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 9.987, Wall: 9.987)
+  Storing: ** done (CPU: 0.240, Wall: 0.242)
+===>>> Total time spent on Iteration 7:  2:00.664 CPU, 33.999  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 15:41.416 CPU, 4:26.188  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 183.7 PJ, PE = 157.3 PJ, D = 2.614 TW.
+	D_BL = 0.890 TW, D_IT = 1.719 TW, D_SAL = 0.004 GW, D_f = -0.027 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.890 |  0.884  | 0.006 |  0.878  | 0.012 |  
+	 | D_IT | 1.719 |  0.626  | 1.093 |  1.015  | 0.704 |  
+	 | D    | 2.609 |  1.510  | 1.100 |  1.893  | 0.717 |  
+-----------------------------------------------------------------------------
+k1:	KE = 40.1 PJ, PE = 23.7 PJ, D = 0.341 TW.
+	D_BL = 0.171 TW, D_IT = 0.170 TW, D_SAL = 0.001 GW, D_f = -0.375 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.171 |  0.169  | 0.002 |  0.158  | 0.013 |  
+	 | D_IT | 0.170 |  0.012  | 0.158 |  0.115  | 0.055 |  
+	 | D    | 0.341 |  0.181  | 0.160 |  0.273  | 0.068 |  
+ 
+===>>> Calculation of domain integrals: 29.391 CPU, 29.402  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_23__22_45
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.423, Wall: 0.425)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.1s, Wall:1.1s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 6.0Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:20.522, Wall: 30.138)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:52.067, Wall: 15.654)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 527.07 | 354.14 | 40.459 | 4.19 | 0.343 | 0.343 |  
+	 | k1    | 643.47 | 570.01 | 12.049 | 2.75 | 0.109 | 0.109 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 14.135, Wall: 8.915)
+ 2. for k1: done (CPU: 7.6368, Wall: 3.39)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.267, Wall: 19.283)
+  Storing: ** done (CPU: 0.646, Wall: 0.670)
+===>>> Total time spent on Iteration 1:  5:18.267 CPU,  1:35.290  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:31.410, Wall: 12.409)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:38.357, Wall: 13.626)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  55.56 |  57.40 | 1.008 | 3.93 | 0.044 | 0.737 |  
+	 | k1    | 210.90 | 168.97 | 0.639 | 0.94 | 0.014 | 0.303 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.7477, Wall: 4.196)
+ 2. for k1: done (CPU: 8.3167, Wall: 3.439)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.404, Wall: 19.406)
+  Storing: ** done (CPU: 0.613, Wall: 0.613)
+===>>> Total time spent on Iteration 2:  4:10.801 CPU,  1:09.718  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.779, Wall: 11.673)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.231, Wall: 11.581)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 30.02 | 21.88 | 0.081 | 1.23 | 0.018 | 0.078 |  
+	 | k1    | 80.03 | 61.47 | 0.088 | 0.36 | 0.007 | 0.092 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.8397, Wall: 4.042)
+ 2. for k1: done (CPU: 7.6668, Wall: 3.363)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.656, Wall: 19.663)
+  Storing: ** done (CPU: 0.625, Wall: 0.626)
+===>>> Total time spent on Iteration 3:  3:56.659 CPU,  1:04.162  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.054, Wall: 11.831)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.863, Wall: 11.840)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 15.13 |  8.73 | 0.036 | 0.62 | 0.008 | 0.036 |  
+	 | k1    | 35.09 | 26.98 | 0.041 | 0.13 | 0.003 | 0.044 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.0847, Wall: 4.09)
+ 2. for k1: done (CPU: 7.5859, Wall: 3.417)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.755, Wall: 19.799)
+  Storing: ** done (CPU: 0.636, Wall: 0.636)
+===>>> Total time spent on Iteration 4:  3:57.188 CPU,  1:05.262  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.840, Wall: 11.498)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.004, Wall: 11.533)
+	-----------------------------------------------------------
+	 | Convg |   du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    |  7.49 | 4.01 | 0.017 | 0.29 | 0.004 | 0.017 |  
+	 | k1    | 12.71 | 9.79 | 0.020 | 0.08 | 0.001 | 0.021 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.8486, Wall: 4.051)
+ 2. for k1: done (CPU: 7.6598, Wall: 3.399)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.300, Wall: 19.304)
+  Storing: ** done (CPU: 0.611, Wall: 0.612)
+===>>> Total time spent on Iteration 5:  3:59.746 CPU,  1:03.867  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.719, Wall: 11.670)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.307, Wall: 11.578)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 3.67 | 1.96 | 0.008 | 0.12 | 0.002 | 0.008 |  
+	 | k1    | 3.41 | 2.77 | 0.010 | 0.05 | 0.001 | 0.010 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.2698, Wall: 4.07)
+ 2. for k1: done (CPU: 8.2247, Wall: 3.385)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.284, Wall: 19.301)
+  Storing: ** done (CPU: 0.614, Wall: 0.614)
+===>>> Total time spent on Iteration 6:  3:56.341 CPU,  1:03.904  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.559, Wall: 11.689)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:29.298, Wall: 11.784)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.78 | 0.95 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	 | k1    | 1.33 | 1.18 | 0.005 | 0.03 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.3928, Wall: 4.108)
+ 2. for k1: done (CPU: 8.2357, Wall: 3.402)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.293, Wall: 19.298)
+  Storing: ** done (CPU: 0.610, Wall: 0.610)
+===>>> Total time spent on Iteration 7:  3:58.215 CPU,  1:04.248  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 29:17.239 CPU, 8:06.468  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 175.3 PJ, PE = 148.3 PJ, D = 2.675 TW.
+	D_BL = 0.913 TW, D_IT = 1.758 TW, D_SAL = -0.032 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.913 |  0.907  | 0.006 |  0.899  | 0.014 |  
+	 | D_IT | 1.758 |  0.623  | 1.134 |  1.024  | 0.734 |  
+	 | D    | 2.670 |  1.530  | 1.140 |  1.923  | 0.747 |  
+-----------------------------------------------------------------------------
+k1:	KE = 38.4 PJ, PE = 22.0 PJ, D = 0.336 TW.
+	D_BL = 0.183 TW, D_IT = 0.153 TW, D_SAL = -0.007 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.183 |  0.181  | 0.002 |  0.173  | 0.010 |  
+	 | D_IT | 0.153 |  0.010  | 0.143 |  0.102  | 0.051 |  
+	 | D    | 0.336 |  0.191  | 0.145 |  0.275  | 0.061 |  
+ 
+===>>> Calculation of domain integrals: 11:47.112 CPU, 11:48.853  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_24__14_28
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.406, Wall: 0.408)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.2s, Wall:0.2s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 5.9Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 3:26.747, Wall: 39.240)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:45.274, Wall: 24.496)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 674.20 | 415.02 | 46.881 | 5.35 | 0.410 | 0.410 |  
+	 | k1    | 649.51 | 575.36 | 12.346 | 2.78 | 0.112 | 0.112 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 13.532, Wall: 8.713)
+ 2. for k1: done (CPU: 8.3627, Wall: 3.524)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.302, Wall: 19.308)
+  Storing: ** done (CPU: 0.640, Wall: 0.642)
+===>>> Total time spent on Iteration 1:  7:19.594 CPU,  1:49.932  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:24.102, Wall: 21.354)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:48.126, Wall: 24.841)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  73.06 |  81.73 | 1.503 | 4.03 | 0.060 | 1.054 |  
+	 | k1    | 214.86 | 173.30 | 0.557 | 0.88 | 0.014 | 0.292 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.9916, Wall: 4.216)
+ 2. for k1: done (CPU: 8.0058, Wall: 3.594)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.193, Wall: 19.201)
+  Storing: ** done (CPU: 0.607, Wall: 0.608)
+===>>> Total time spent on Iteration 2:  6:13.596 CPU,  1:27.380  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:29.554, Wall: 22.225)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:40.329, Wall: 24.266)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 37.73 | 29.33 | 0.083 | 1.43 | 0.022 | 0.081 |  
+	 | k1    | 65.75 | 51.46 | 0.080 | 0.30 | 0.006 | 0.082 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.0206, Wall: 4.171)
+ 2. for k1: done (CPU: 8.2867, Wall: 3.502)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.122, Wall: 19.125)
+  Storing: ** done (CPU: 0.604, Wall: 0.605)
+===>>> Total time spent on Iteration 3:  6:13.821 CPU,  1:27.764  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:04.090, Wall: 19.332)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.121, Wall: 11.027)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 18.98 | 11.88 | 0.040 | 0.75 | 0.010 | 0.040 |  
+	 | k1    | 24.71 | 18.97 | 0.037 | 0.14 | 0.003 | 0.038 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 9.0486, Wall: 3.987)
+ 2. for k1: done (CPU: 7.6609, Wall: 3.357)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.207, Wall: 19.226)
+  Storing: ** done (CPU: 0.614, Wall: 0.615)
+===>>> Total time spent on Iteration 4:  4:27.318 CPU,  1:10.855  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:35.485, Wall: 22.999)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:23.486, Wall: 20.728)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 9.13 | 5.29 | 0.019 | 0.35 | 0.005 | 0.018 |  
+	 | k1    | 8.59 | 6.62 | 0.018 | 0.08 | 0.001 | 0.018 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.4277, Wall: 4.011)
+ 2. for k1: done (CPU: 7.3088, Wall: 3.36)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.257, Wall: 19.259)
+  Storing: ** done (CPU: 0.610, Wall: 0.612)
+===>>> Total time spent on Iteration 5:  5:56.798 CPU,  1:24.549  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:27.162, Wall: 11.538)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:30.115, Wall: 12.015)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.31 | 2.57 | 0.009 | 0.14 | 0.002 | 0.009 |  
+	 | k1    | 2.64 | 2.25 | 0.009 | 0.05 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.9299, Wall: 3.957)
+ 2. for k1: done (CPU: 7.9417, Wall: 3.379)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.255, Wall: 19.271)
+  Storing: ** done (CPU: 0.614, Wall: 0.613)
+===>>> Total time spent on Iteration 6:  3:59.964 CPU,  1:03.950  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:40.677, Wall: 13.739)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:35.531, Wall: 12.925)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 2.02 | 1.34 | 0.004 | 0.07 | 0.001 | 0.004 |  
+	 | k1    | 1.22 | 1.12 | 0.005 | 0.03 | 0.000 | 0.004 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.8718, Wall: 3.992)
+ 2. for k1: done (CPU: 7.467, Wall: 3.382)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.373, Wall: 19.374)
+  Storing: ** done (CPU: 0.610, Wall: 0.612)
+===>>> Total time spent on Iteration 7:  4:19.297 CPU,  1:07.431  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 38:30.411 CPU, 9:31.883  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 234.7 PJ, PE = 203.5 PJ, D = 2.921 TW.
+	D_BL = 1.520 TW, D_IT = 1.395 TW, D_SAL = -0.047 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.520 |  1.511  | 0.009 |  1.501  | 0.019 |  
+	 | D_IT | 1.395 |  0.584  | 0.811 |  0.865  | 0.530 |  
+	 | D    | 2.915 |  2.095  | 0.820 |  2.365  | 0.550 |  
+-----------------------------------------------------------------------------
+k1:	KE = 39.5 PJ, PE = 22.8 PJ, D = 0.321 TW.
+	D_BL = 0.203 TW, D_IT = 0.118 TW, D_SAL = -0.007 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.203 |  0.200  | 0.002 |  0.193  | 0.010 |  
+	 | D_IT | 0.118 |  0.029  | 0.089 |  0.087  | 0.031 |  
+	 | D    | 0.320 |  0.229  | 0.091 |  0.279  | 0.041 |  
+ 
+===>>> Calculation of domain integrals: 11:46.950 CPU, 11:47.331  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_24__23_12
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.413, Wall: 0.414)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 5.9Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:13.928, Wall: 25.541)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.253, Wall: 11.147)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 662.18 | 411.50 | 46.240 | 5.21 | 0.403 | 0.403 |  
+	 | k1    | 649.09 | 574.98 | 12.317 | 2.78 | 0.111 | 0.111 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 13.357, Wall: 8.583)
+ 2. for k1: done (CPU: 7.5169, Wall: 3.309)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.246, Wall: 19.256)
+  Storing: ** done (CPU: 0.643, Wall: 0.644)
+===>>> Total time spent on Iteration 1:  4:45.996 CPU,  1:22.125  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.869, Wall: 11.645)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.991, Wall: 11.244)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  71.53 |  79.20 | 1.464 | 4.03 | 0.059 | 1.029 |  
+	 | k1    | 214.42 | 172.79 | 0.557 | 0.89 | 0.014 | 0.291 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.3977, Wall: 4.037)
+ 2. for k1: done (CPU: 7.4429, Wall: 3.317)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.268, Wall: 19.288)
+  Storing: ** done (CPU: 0.610, Wall: 0.610)
+===>>> Total time spent on Iteration 2:  3:52.462 CPU,  1:03.879  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:28.448, Wall: 11.661)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.650, Wall: 11.092)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 37.22 | 28.58 | 0.083 | 1.41 | 0.022 | 0.081 |  
+	 | k1    | 65.25 | 50.98 | 0.081 | 0.31 | 0.006 | 0.084 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.0388, Wall: 4.093)
+ 2. for k1: done (CPU: 7.8948, Wall: 3.36)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.278, Wall: 19.319)
+  Storing: ** done (CPU: 0.606, Wall: 0.607)
+===>>> Total time spent on Iteration 3:  3:54.065 CPU,  1:03.422  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.870, Wall: 11.211)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.622, Wall: 11.189)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 18.72 | 11.56 | 0.040 | 0.74 | 0.010 | 0.040 |  
+	 | k1    | 25.63 | 19.69 | 0.037 | 0.14 | 0.003 | 0.038 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1387, Wall: 3.969)
+ 2. for k1: done (CPU: 7.4769, Wall: 3.298)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.259, Wall: 19.263)
+  Storing: ** done (CPU: 0.607, Wall: 0.615)
+===>>> Total time spent on Iteration 4:  3:50.025 CPU,  1:02.862  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.034, Wall: 11.173)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.578, Wall: 11.309)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 9.03 | 5.14 | 0.019 | 0.35 | 0.005 | 0.019 |  
+	 | k1    | 8.92 | 6.87 | 0.018 | 0.08 | 0.001 | 0.018 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.9027, Wall: 3.943)
+ 2. for k1: done (CPU: 7.8549, Wall: 3.348)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.301, Wall: 19.305)
+  Storing: ** done (CPU: 0.611, Wall: 0.612)
+===>>> Total time spent on Iteration 5:  3:55.965 CPU,  1:02.987  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.410, Wall: 11.322)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.993, Wall: 11.345)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.27 | 2.50 | 0.009 | 0.14 | 0.002 | 0.009 |  
+	 | k1    | 2.67 | 2.30 | 0.009 | 0.05 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.0637, Wall: 3.965)
+ 2. for k1: done (CPU: 8.3168, Wall: 3.409)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.315, Wall: 19.388)
+  Storing: ** done (CPU: 0.610, Wall: 0.612)
+===>>> Total time spent on Iteration 6:  3:54.639 CPU,  1:03.339  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.885, Wall: 11.045)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.920, Wall: 11.220)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.99 | 1.30 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	 | k1    | 1.23 | 1.13 | 0.005 | 0.03 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1438, Wall: 3.986)
+ 2. for k1: done (CPU: 7.1869, Wall: 3.305)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.242, Wall: 19.274)
+  Storing: ** done (CPU: 0.606, Wall: 0.608)
+===>>> Total time spent on Iteration 7:  3:51.179 CPU,  1:02.799  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 28:04.354 CPU, 7:41.437  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 228.4 PJ, PE = 197.6 PJ, D = 2.897 TW.
+	D_BL = 1.454 TW, D_IT = 1.437 TW, D_SAL = -0.045 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.454 |  1.445  | 0.009 |  1.435  | 0.019 |  
+	 | D_IT | 1.437 |  0.593  | 0.843 |  0.886  | 0.551 |  
+	 | D    | 2.891 |  2.039  | 0.852 |  2.321  | 0.569 |  
+-----------------------------------------------------------------------------
+k1:	KE = 39.4 PJ, PE = 22.8 PJ, D = 0.322 TW.
+	D_BL = 0.201 TW, D_IT = 0.121 TW, D_SAL = -0.007 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.201 |  0.198  | 0.002 |  0.190  | 0.010 |  
+	 | D_IT | 0.121 |  0.028  | 0.094 |  0.089  | 0.032 |  
+	 | D    | 0.322 |  0.226  | 0.096 |  0.280  | 0.043 |  
+ 
+===>>> Calculation of domain integrals: 11:46.107 CPU, 11:46.198  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_25__16_05
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc1440_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.424, Wall: 0.426)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.6Gb < 15.0Gb RAM+Swap. Running in-core with peak memory usage: 6.0Gb.
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 2:12.595, Wall: 25.757)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.355, Wall: 10.930)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 627.59 | 399.64 | 44.544 | 4.83 | 0.385 | 0.385 |  
+	 | k1    | 647.89 | 573.91 | 12.241 | 2.77 | 0.111 | 0.111 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 12.716, Wall: 8.545)
+ 2. for k1: done (CPU: 8.4937, Wall: 3.357)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.194, Wall: 19.190)
+  Storing: ** done (CPU: 0.641, Wall: 0.641)
+===>>> Total time spent on Iteration 1:  4:44.569 CPU,  1:21.974  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.079, Wall: 11.175)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.427, Wall: 10.932)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ---- | ----- | ----- |  
+	 | m2    |  67.23 |  72.45 | 1.315 | 4.02 | 0.054 | 0.947 |  
+	 | k1    | 213.39 | 171.59 | 0.576 | 0.90 | 0.014 | 0.292 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.7108, Wall: 3.988)
+ 2. for k1: done (CPU: 7.2179, Wall: 3.273)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.151, Wall: 19.152)
+  Storing: ** done (CPU: 0.606, Wall: 0.607)
+===>>> Total time spent on Iteration 2:  3:54.890 CPU,  1:02.312  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.087, Wall: 11.074)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:23.285, Wall: 10.803)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 35.97 | 26.61 | 0.086 | 1.37 | 0.021 | 0.084 |  
+	 | k1    | 66.33 | 50.91 | 0.083 | 0.33 | 0.006 | 0.086 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.3958, Wall: 3.955)
+ 2. for k1: done (CPU: 7.7648, Wall: 3.282)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.184, Wall: 19.190)
+  Storing: ** done (CPU: 0.610, Wall: 0.611)
+===>>> Total time spent on Iteration 3:  3:52.714 CPU,  1:02.161  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.262, Wall: 10.854)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.560, Wall: 10.913)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 18.10 | 10.71 | 0.041 | 0.71 | 0.010 | 0.040 |  
+	 | k1    | 28.08 | 21.57 | 0.039 | 0.14 | 0.003 | 0.040 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.7467, Wall: 3.996)
+ 2. for k1: done (CPU: 7.5959, Wall: 3.344)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.147, Wall: 19.149)
+  Storing: ** done (CPU: 0.602, Wall: 0.603)
+===>>> Total time spent on Iteration 4:  3:51.928 CPU,  1:02.000  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.085, Wall: 10.824)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.034, Wall: 10.812)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 8.67 | 4.76 | 0.019 | 0.33 | 0.004 | 0.018 |  
+	 | k1    | 9.83 | 7.57 | 0.019 | 0.08 | 0.001 | 0.019 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 8.1398, Wall: 3.953)
+ 2. for k1: done (CPU: 7.141, Wall: 3.339)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.196, Wall: 19.211)
+  Storing: ** done (CPU: 0.604, Wall: 0.607)
+===>>> Total time spent on Iteration 5:  3:50.427 CPU,  1:02.015  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:26.962, Wall: 11.220)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:23.726, Wall: 10.831)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 4.12 | 2.31 | 0.009 | 0.14 | 0.002 | 0.008 |  
+	 | k1    | 2.84 | 2.38 | 0.009 | 0.05 | 0.001 | 0.009 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.9027, Wall: 3.942)
+ 2. for k1: done (CPU: 7.1528, Wall: 3.305)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.127, Wall: 19.128)
+  Storing: ** done (CPU: 0.605, Wall: 0.606)
+===>>> Total time spent on Iteration 6:  3:51.195 CPU,  1:02.313  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:24.016, Wall: 10.864)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.6Gb).    c) Solve... done (CPU: 1:25.354, Wall: 11.041)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.94 | 1.20 | 0.004 | 0.06 | 0.001 | 0.004 |  
+	 | k1    | 1.26 | 1.17 | 0.005 | 0.03 | 0.000 | 0.005 |  
+	-----------------------------------------------------------
+ 
+Calculate hsal and beta: 
+ 1. for m2: done (CPU: 7.7428, Wall: 3.962)
+ 2. for k1: done (CPU: 8.0408, Wall: 3.339)
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.199, Wall: 19.208)
+  Storing: ** done (CPU: 0.608, Wall: 0.610)
+===>>> Total time spent on Iteration 7:  3:47.880 CPU,  1:02.191  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 27:53.626 CPU, 7:34.990  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 212.2 PJ, PE = 182.4 PJ, D = 2.831 TW.
+	D_BL = 1.285 TW, D_IT = 1.541 TW, D_SAL = -0.041 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.285 |  1.277  | 0.008 |  1.268  | 0.017 |  
+	 | D_IT | 1.541 |  0.611  | 0.929 |  0.936  | 0.604 |  
+	 | D    | 2.826 |  1.888  | 0.937 |  2.205  | 0.621 |  
+-----------------------------------------------------------------------------
+k1:	KE = 39.2 PJ, PE = 22.6 PJ, D = 0.327 TW.
+	D_BL = 0.195 TW, D_IT = 0.131 TW, D_SAL = -0.007 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.195 |  0.193  | 0.002 |  0.185  | 0.010 |  
+	 | D_IT | 0.131 |  0.024  | 0.107 |  0.094  | 0.037 |  
+	 | D    | 0.327 |  0.217  | 0.110 |  0.279  | 0.047 |  
+ 
+===>>> Calculation of domain integrals: 11:44.896 CPU, 11:44.994  Wall
+Cleaning up temporary files 
+[H[2JSaving data as 2013_01_26__08_41
+Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/topo_rot_2.0min_pole_15_-40.dat 
+Interpolating topo to 15.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 2366 + 476 + 176 + 85 + 41 + 19 + 12 + 6 + 4 + 4 + 3 + 2 + 1 + 0.
+Removing inland seas/lakes: found 53 connected components; removed 51 of size < 144 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file: /home/amt6/amtvl/Desktop/scratch/Tides/data/LAG/baro_fd/in/topo/nocs/smoothed_t1_trunc720_topo_rot_2.0min_pole_15_-40.dat 
+done (CPU: 0.426, Wall: 0.429)
+Allocating grid points: 1306386 for u, 1306849 for v, 1296383  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 0.3s, Wall:0.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.2s, Wall:0.2s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 1.0s, Wall:1.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 1.1s, Wall:1.1s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c. DONE
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [3.91E+06 x 3.91E+06] sparse matrix (nnz = 2.45E+07). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-2.8Gb; permanent-2.4Gb) 
+      Size of matrix factors 3.5Gb < 20.0Gb RAM+Swap. Running in-core with peak memory usage: 5.9Gb.
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 2:09.771, Wall: 25.444)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:25.037, Wall: 11.140)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv%  |  dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ------ | ---- | ----- | ----- |  
+	 | m2    | 428.57 | 243.89 | 40.524 | 4.38 | 0.351 | 0.351 |  
+	 | k1    | 618.74 | 548.33 | 11.428 | 2.67 | 0.101 | 0.101 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.222, Wall: 19.222)
+  Storing: ** done (CPU: 0.643, Wall: 0.644)
+===>>> Total time spent on Iteration 1:  4:08.836 CPU,  1:05.100  Wall
+==============
+ Iteration 2
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.329, Wall: 10.875)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.574, Wall: 10.741)
+	-----------------------------------------------------------
+	 | Convg |   du   |   dv   |  duv% |   dh  | dhbar |  dh%  | 	
+	 | ----- | ------ | ------ | ----- | ----- | ----- | ----- |  
+	 | m2    | 123.44 |  64.60 | 2.749 | 10.40 | 0.034 | 2.575 |  
+	 | k1    | 191.84 | 154.83 | 0.500 |  0.99 | 0.006 | 0.185 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.230, Wall: 19.229)
+  Storing: ** done (CPU: 0.610, Wall: 0.611)
+===>>> Total time spent on Iteration 2:  3:18.686 CPU, 49.370  Wall
+==============
+ Iteration 3
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.390, Wall: 10.758)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.094, Wall: 10.788)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 61.72 | 32.30 | 0.053 | 5.20 | 0.012 | 0.046 |  
+	 | k1    | 69.03 | 52.98 | 0.044 | 0.34 | 0.002 | 0.034 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.172, Wall: 19.183)
+  Storing: ** done (CPU: 0.603, Wall: 0.605)
+===>>> Total time spent on Iteration 3:  3:19.149 CPU, 49.157  Wall
+==============
+ Iteration 4
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.619, Wall: 10.838)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.031, Wall: 10.720)
+	-----------------------------------------------------------
+	 | Convg |   du  |   dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ----- | ----- | ---- | ----- | ----- |  
+	 | m2    | 30.85 | 16.14 | 0.025 | 2.60 | 0.005 | 0.021 |  
+	 | k1    | 30.45 | 23.39 | 0.019 | 0.17 | 0.001 | 0.013 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.167, Wall: 19.173)
+  Storing: ** done (CPU: 0.605, Wall: 0.606)
+===>>> Total time spent on Iteration 4:  3:19.267 CPU, 49.202  Wall
+==============
+ Iteration 5
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.670, Wall: 10.838)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.216, Wall: 10.802)
+	-----------------------------------------------------------
+	 | Convg |   du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ----- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 15.35 | 8.03 | 0.012 | 1.29 | 0.002 | 0.011 |  
+	 | k1    | 11.78 | 9.07 | 0.009 | 0.08 | 0.000 | 0.006 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.151, Wall: 19.153)
+  Storing: ** done (CPU: 0.606, Wall: 0.607)
+===>>> Total time spent on Iteration 5:  3:19.802 CPU, 49.290  Wall
+==============
+ Iteration 6
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:23.586, Wall: 10.831)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.816, Wall: 10.725)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 7.48 | 3.90 | 0.005 | 0.63 | 0.001 | 0.005 |  
+	 | k1    | 4.00 | 3.09 | 0.005 | 0.05 | 0.000 | 0.003 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.157, Wall: 19.159)
+  Storing: ** done (CPU: 0.605, Wall: 0.606)
+===>>> Total time spent on Iteration 6:  3:18.389 CPU, 49.178  Wall
+==============
+ Iteration 7
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.466, Wall: 10.706)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.548, Wall: 10.758)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 3.49 | 1.82 | 0.002 | 0.33 | 0.001 | 0.002 |  
+	 | k1    | 1.28 | 1.02 | 0.003 | 0.03 | 0.000 | 0.002 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.202, Wall: 19.205)
+  Storing: ** done (CPU: 0.606, Wall: 0.607)
+===>>> Total time spent on Iteration 7:  3:17.141 CPU, 49.126  Wall
+==============
+ Iteration 8
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.831, Wall: 10.737)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.584, Wall: 10.755)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 1.52 | 0.87 | 0.001 | 0.17 | 0.000 | 0.001 |  
+	 | k1    | 0.67 | 0.51 | 0.001 | 0.02 | 0.000 | 0.001 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.152, Wall: 19.153)
+  Storing: ** done (CPU: 0.606, Wall: 0.609)
+===>>> Total time spent on Iteration 8:  3:15.957 CPU, 49.180  Wall
+==============
+ Iteration 9
+==============
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.195, Wall: 10.696)
+ 2. for k1: assembling the matrix and rhs, implementing b.c. 
+   b) Factorization... done (3.5Gb).    c) Solve... done (CPU: 1:22.236, Wall: 10.682)
+	-----------------------------------------------------------
+	 | Convg |  du  |  dv  |  duv% |  dh  | dhbar |  dh%  | 	
+	 | ----- | ---- | ---- | ----- | ---- | ----- | ----- |  
+	 | m2    | 0.53 | 0.31 | 0.001 | 0.07 | 0.000 | 0.000 |  
+	 | k1    | 0.38 | 0.29 | 0.001 | 0.01 | 0.000 | 0.001 |  
+	-----------------------------------------------------------
+  Welcome to calc_dhat: Projecting: ******** done (CPU: 19.202, Wall: 19.202)
+  Storing: ** done (CPU: 0.609, Wall: 0.610)
+===>>> Total time spent on Iteration 9:  3:18.138 CPU, 49.088  Wall
+========================================================================
+========================================================================
+ 
+===>>> Total time spent on solving the system: 30:35.391 CPU, 7:38.717  Wall
+ 
+-----------------------------------------------------------------------------
+m2:	KE = 211.9 PJ, PE = 184.1 PJ, D = 3.359 TW.
+	D_BL = 1.220 TW, D_IT = 2.138 TW, D_SAL = 0.000 GW, D_f = 0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 1.220 |  1.213  | 0.008 |  1.204  | 0.016 |  
+	 | D_IT | 2.138 |  0.500  | 1.638 |  1.099  | 1.039 |  
+	 | D    | 3.358 |  1.713  | 1.646 |  2.304  | 1.055 |  
+-----------------------------------------------------------------------------
+k1:	KE = 36.0 PJ, PE = 19.1 PJ, D = 0.351 TW.
+	D_BL = 0.180 TW, D_IT = 0.171 TW, D_SAL = -0.000 GW, D_f = -0.000 GW.
+	---------------------------------------------------------------------
+	 | **** | Total | Shallow |  Deep | Coastal |  Open | 	
+	 | ---- | ----- | ------- | ----- | ------- | ----- |  
+	 | D_BL | 0.180 |  0.177  | 0.002 |  0.170  | 0.009 |  
+	 | D_IT | 0.171 |  0.024  | 0.148 |  0.086  | 0.085 |  
+	 | D    | 0.351 |  0.201  | 0.150 |  0.256  | 0.095 |  
+ 
+===>>> Calculation of domain integrals: 11:44.828 CPU, 11:44.913  Wall
+Cleaning up temporary files 

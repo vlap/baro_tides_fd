@@ -1,0 +1,18 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2009 The MathWorks, Inc.
+                Version 7.9.0.529 (R2009b) 64-bit (glnxa64)
+                              August 12, 2009
+
+ 
+  To get started, type one of these: helpwin, helpdesk, or demo.
+  For product information, visit www.mathworks.com.
+ 
+{??? Error using ==> load
+Unable to read file
+/home/amsta/amtvl/Desktop/scratch/Tides/soft/TTM/out/ttm1/data/2012_11_29__15_05/flags:
+No such file or directory.
+
+Error in ==> save_grid_binary at 29
+load(flagfile_in,'flags');
+} 

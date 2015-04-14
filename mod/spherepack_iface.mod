@@ -1,0 +1,170 @@
+GFORTRAN module version '0' created from src/spherepack/spherepack_iface.f90 on Sun Aug  4 18:47:32 2013
+MD5:2070885eacf150a369ae16ba008afe73 -- If you edit this, you'll get what you deserve.
+
+(() () () () () () ()
+() () () () () () () () () () () () () () () () () () () ())
+
+()
+
+()
+
+()
+
+()
+
+(2 'cleanup' 'spherepack_iface' 'cleanup' 1 ((PROCEDURE UNKNOWN-INTENT
+MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (UNKNOWN 0 0 0
+UNKNOWN ()) 3 0 (4) () 0 () () () 0 0)
+5 'cleanup_gau' 'spherepack_iface' 'cleanup_gau' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE) (UNKNOWN 0 0 0
+UNKNOWN ()) 0 0 () () 0 () () () 0 0)
+6 'cleanup_reg' 'spherepack_iface' 'cleanup_reg' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE) (UNKNOWN 0 0 0
+UNKNOWN ()) 0 0 () () 0 () () () 0 0)
+7 'grdtospec' 'spherepack_iface' 'grdtospec' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 8 0 (9 10 11 12) () 0 () () () 0 0)
+13 'grdtospec_gau' 'spherepack_iface' 'grdtospec_gau' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 14 0 (15 16) () 0 () () () 0 0)
+17 'grdtospec_reg' 'spherepack_iface' 'grdtospec_reg' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 18 0 (19 20 21) () 0 () () () 0 0)
+22 'specsmooth' 'spherepack_iface' 'specsmooth' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 23 0 (24 25 26 27 28) () 0 () () () 0 0)
+29 'specsmooth_gau' 'spherepack_iface' 'specsmooth_gau' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 30 0 (31 32) () 0 () () () 0 0)
+33 'specsmooth_reg' 'spherepack_iface' 'specsmooth_reg' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 34 0 (35 36 37 38) () 0 () () () 0 0)
+39 'spectogrd' 'spherepack_iface' 'spectogrd' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 40 0 (41 42 43 44) () 0 () () () 0 0)
+45 'spectogrd_gau' 'spherepack_iface' 'spectogrd_gau' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 46 0 (47 48) () 0 () () () 0 0)
+49 'spectogrd_reg' 'spherepack_iface' 'spectogrd_reg' 1 ((PROCEDURE
+UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE ALWAYS_EXPLICIT) (
+UNKNOWN 0 0 0 UNKNOWN ()) 50 0 (51 52 53) () 0 () () () 0 0)
+54 'spectogrd_reg_n2' 'spherepack_iface' 'spectogrd_reg_n2' 1 ((
+PROCEDURE UNKNOWN-INTENT MODULE-PROC DECL UNKNOWN SUBROUTINE
+ALWAYS_EXPLICIT) (UNKNOWN 0 0 0 UNKNOWN ()) 55 0 (56 57 58) () 0 () () ()
+0 0)
+52 'datagrid' '' 'datagrid' 50 ((VARIABLE INOUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+9 'datagrid' '' 'datagrid' 8 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (CONSTANT
+(INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0 INTEGER ())
+0 '1') ()) 0 () () () 0 0)
+10 'dataspec' '' 'dataspec' 8 ((VARIABLE OUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+11 'save_sht' '' 'save_sht' 8 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+12 'gridtype' '' 'gridtype' 8 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+OPTIONAL DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0
+0)
+16 'dataspec' '' 'dataspec' 14 ((VARIABLE OUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+41 'dataspec' '' 'dataspec' 40 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+42 'datagrid' '' 'datagrid' 40 ((VARIABLE OUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+43 'save_sht' '' 'save_sht' 40 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+44 'gridtype' '' 'gridtype' 40 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN OPTIONAL DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 ()
+() () 0 0)
+24 'datagrid' '' 'datagrid' 23 ((VARIABLE INOUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+25 'smooth' '' 'smooth' 23 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (1 ASSUMED_SHAPE (CONSTANT
+(INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+26 'gridtype' '' 'gridtype' 23 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+27 'messages' '' 'messages' 23 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN UNKNOWN DUMMY) (LOGICAL 4 0 0 LOGICAL ()) 0 0 () () 0 () () () 0
+0)
+28 'spec_coeff_file' '' 'spec_coeff_file' 23 ((VARIABLE IN UNKNOWN-PROC
+UNKNOWN UNKNOWN OPTIONAL DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 ()
+() 0 () () () 0 0)
+4 'gridtype' '' 'gridtype' 3 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+OPTIONAL DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0
+0)
+19 'datagrid' '' 'datagrid' 18 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+20 'dataspec' '' 'dataspec' 18 ((VARIABLE OUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+21 'save_sht' '' 'save_sht' 18 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+15 'datagrid' '' 'datagrid' 14 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+51 'dataspec' '' 'dataspec' 50 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+53 'save_sht' '' 'save_sht' 50 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+47 'dataspec' '' 'dataspec' 46 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+48 'datagrid' '' 'datagrid' 46 ((VARIABLE OUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+35 'datagrid' '' 'datagrid' 34 ((VARIABLE INOUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+36 'smooth' '' 'smooth' 34 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (1 ASSUMED_SHAPE (CONSTANT
+(INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+37 'messages' '' 'messages' 34 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN UNKNOWN DUMMY) (LOGICAL 4 0 0 LOGICAL ()) 0 0 () () 0 () () () 0
+0)
+38 'spec_coeff_file' '' 'spec_coeff_file' 34 ((VARIABLE IN UNKNOWN-PROC
+UNKNOWN UNKNOWN OPTIONAL DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 ()
+() 0 () () () 0 0)
+31 'datagrid' '' 'datagrid' 30 ((VARIABLE INOUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+32 'smooth' '' 'smooth' 30 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN
+DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (1 ASSUMED_SHAPE (CONSTANT
+(INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+56 'dataspec' '' 'dataspec' 55 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (COMPLEX 8 0 0 COMPLEX ()) 0 0 () (1
+ASSUMED_SHAPE (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') ()) 0 () () ()
+0 0)
+57 'datagrid' '' 'datagrid' 55 ((VARIABLE INOUT UNKNOWN-PROC UNKNOWN
+UNKNOWN DIMENSION DUMMY) (REAL 8 0 0 REAL ()) 0 0 () (2 ASSUMED_SHAPE (
+CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '1') () (CONSTANT (INTEGER 4 0 0
+INTEGER ()) 0 '1') ()) 0 () () () 0 0)
+58 'save_sht' '' 'save_sht' 55 ((VARIABLE IN UNKNOWN-PROC UNKNOWN
+UNKNOWN DUMMY) (CHARACTER 1 0 0 CHARACTER (())) 0 0 () () 0 () () () 0 0)
+)
+
+('cleanup' 0 2 'cleanup_gau' 0 5 'cleanup_reg' 0 6 'grdtospec' 0 7
+'grdtospec_gau' 0 13 'grdtospec_reg' 0 17 'specsmooth' 0 22
+'specsmooth_gau' 0 29 'specsmooth_reg' 0 33 'spectogrd' 0 39
+'spectogrd_gau' 0 45 'spectogrd_reg' 0 49 'spectogrd_reg_n2' 0 54)

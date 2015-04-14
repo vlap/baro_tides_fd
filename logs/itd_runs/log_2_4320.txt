@@ -1,0 +1,46 @@
+[H[2JSaving data as 2012_11_22__14_36
+Loading topography file:  done.
+Interpolating topo to  5.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 4073 + 1070 + 548 + 291 + 172 + 117 + 88 + 63 + 46 + 34 + 27 + 19 + 14 + 11 + 7 + 4 + 3 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 0.
+Removing inland seas/lakes: found 121 connected components;[H[2JSaving data as 2012_11_23__14_49
+Loading topography file:  done.
+Interpolating topo to  5.00 min resolution global grid: [H[2JSaving data as 2012_11_23__23_09
+Loading topography file:  done.
+Interpolating topo to  5.00 min resolution global grid:  done.
+****** Ocean is in the first/last tau index of H_hg. Removed ******
+Removing bays and inlets: 4073 + 1070 + 548 + 291 + 172 + 117 + 88 + 63 + 46 + 34 + 27 + 19 + 14 + 11 + 7 + 4 + 3 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 0.
+Removing inland seas/lakes: found 121 connected components; removed 118 of size < 432 cells.
+Smoothing topography for the linear ITD scheme: Loading topography file:  done.
+done (CPU: 2.495, Wall: 6.472)
+Allocating grid points: 6104785 for u, 6119651 for v, 6087464  for h.
+Making vectors: tau, H, evaluating on the u-, v-, h-grid (CPU: 1.3s, Wall:1.3s)
+Making matrices:
+ - d/dph and 1 for h-grid functions, evaluating on the u-grid (CPU: 0.8s, Wall:0.8s)
+ - d/dta and 1 for h grid functions, evaluating on the v-grid (CPU: 0.7s, Wall:0.7s)
+ - d/dph and 1 for u-grid functions, evaluating on the h-grid (CPU: 0.8s, Wall:0.8s)
+ - d/dta and 1 for v-grid functions, evaluating on the h-grid (CPU: 0.8s, Wall:0.8s)
+ - v & fv,     			     evaluating on the u-grid (CPU: 5.0s, Wall:5.0s)
+ - u & fu,     			     evaluating on the v-grid (CPU: 5.2s, Wall:5.2s)
+Saving matrices: done.
+Preparing matrices: GHU, GHV, KU, KV, v2uf, u2vf, Linear BBL, Linear ITD (1 matrix per constituent), b.c.  Done.
+====================================
+Welcome to baro_solver (nonlinear)
+====================================
+==============
+ Iteration 1
+==============
+Have [1.83E+07 x 1.83E+07] sparse matrix (nnz = 1.15E+08). Solve with pardiso.
+ 1. for m2: assembling the matrix and rhs, implementing b.c. 
+   a) Reordering... done (peak-0.0Gb; permanent-0.0Gb) 
+ The following ERROR was detected:           -2
+STOP 1
+
+Backtrace for this error:
+  + function __unsym_solvers_MOD_pardiso_unsym (0x4CE7F9)
+    at line 282 of file unsym_solvers.f90
+  + function __baro_solver_mod_MOD_baro_solver (0x455430)
+    at line 421 of file baro_solver.f90
+  + in the main program
+    at line 135 of file baro_v1.f90
+  + /lib64/libc.so.6(__libc_start_main+0xfd) [0x3c4081ecdd]

@@ -1,0 +1,169 @@
+program baro_v1
+
+use precisions, only: wp, cwp, dp
+use baro_solver
+use generate_global_matrices
+use generate_global_grid
+use read_etopo
+use my_trigs
+use my_sparse
+use save_load
+
+
+     implicit none
+
+
+!    IMPORTANT Directories & Files
+     character(len=*), parameter :: data_dir = '/home/amsta/amtvl/Desktop/scratch/Tides/data/'
+     character(len=*), parameter :: base_dir = data_dir // 'LAG/baro_fd/'
+     character(len=*), parameter :: in_dir = base_dir // 'in/'
+     character(len=*), parameter :: out_dir = base_dir // 'out/'
+
+     character(len = len(out_dir) + 13 + 1 + len('global/grid/'))     :: dir_cols, dir_grid, dir_mats
+
+     character(len=*), parameter :: etopo_dir = data_dir // 'ETOPO/'
+     character(len=*), parameter :: etopo_file = etopo_dir // 'ETOPO1_Ice_g_gmt4.grd'! original ETOPO NetCDF topo file
+     character(len=*), parameter :: topo_dir = in_dir // 'topo/etopo/'
+     character(len=*), parameter :: topo_file = topo_dir // 'topo_rot_2.0min.dat' ! created with "prepare_topo"
+                                                                                     ! rotated pole, interpolated
+     logical, parameter :: load_etopo = .false. ! true -- load the original ETOPO/NOCS file
+                                                ! false -- use topo_file created earlier
+     logical, parameter :: isave = .false.      ! true -- save to /yyyy_mm_dd__HH_MM
+                                                ! false -- save to /0000_00_00__00_00
+
+!    IMPORTANT Parameters
+     integer, parameter :: nph = 2160! 1/4 degree: 1440 ! 1/6 degree: 2160 !1/8 degree: 2880
+     character(len=*), parameter :: cpts='m2'
+
+type params
+
+     integer :: hmin_scheme=1;  ! 1=simple min depth; 2=local critera
+     integer :: hmin=10;   ! option 1: a simple minimum depth
+     integer :: gppw=4;    ! option 2: min number of Grid Points Per Wavelength
+
+!    Physical Parameters
+     ! In this configuration the North pole is centered on Greenland (30◦W, 80◦N) 
+     ! and the South pole on Antarctica (30◦W, 80◦S)
+     ! The other option of (40◦W, 75◦N) seems to touch water within finer grid
+     real(wp) :: latP = 10!15 ! Pole of the rotated spherical coordinates
+     real(wp) :: lonP = -30!-40
+
+     real(wp)  ::      re = 6.371e6                  ! average earth's radius, m
+     real(wp)  ::      omega = 7.292115e-5                 ! angular velocity, rad/s
+     real(wp)  ::      g = 9.80665                 ! surface gravity, m/s^2
+
+!%   SAL scheme
+!     sal.scheme=1;        % 0=none, 1=scalar approx, >=2 iteration
+!                          % 2:real(beta0), 3: betamin < real(beta) < betamax
+     real(wp)  ::      beta = 0.085                 ! initial value for beta
+!sal.betamin=[0.0 0.0];    % minimum value for beta (iteration)
+!sal.betamax=[0.3 0.3];    % maximum value for beta (iteration)
+!sal.avg=[10 10];          % average over this many degrees
+     real(wp)  ::      cdg=0.0025                 ! nondimensional drag coefficient
+     real(wp)  ::      Qbar=100            ! average value for transport Q
+end type params
+
+     type(params) :: P
+
+!**********************************************************************************************************
+!**********************************************************************************************************
+
+     integer :: numLons, numLats
+     real(dp), pointer :: xValues(:), yValues(:)
+     integer, pointer :: zValues(:, :)
+
+!     real(wp), pointer :: ta_ug(:), ta_vg(:), ph_ug(:), ph_vg(:)
+     integer, pointer :: H_hg(:, :)
+     integer ::     nta
+
+!     integer, pointer :: up(:, :), vp(:, :), hp(:, :)
+!     integer, pointer :: iu_ug(:, :), iv_vg(:, :), ih_hg(:, :)
+     integer ::     nu=0, nv=0, nh=0, np=0
+
+!     real(wp), pointer :: ta_u(:), ta_v(:), ta_h(:)
+!     integer, pointer :: H_u(:), H_v(:), H_h(:)
+
+!     type (triplet) :: h2uddph, h2u, h2vddta, h2v, u2hddph, u2h, v2hddta, v2h
+!     type (triplet) :: u2v, u2vf, u2vfsp, v2u, v2uf, v2ufsp
+
+!     integer :: i
+!     integer ::      istatus
+
+     call system('clear')
+
+!%========================
+!% set up file structure:
+!%========================
+
+     call make_save_dirs(isave, len(out_dir), out_dir, dir_cols, dir_grid, dir_mats)
+
+!%================================================
+!% Loading/preparing topography file
+!%================================================
+
+     if (load_etopo) then
+          call prepare_topo(etopo_file, numLons, numLats, xValues, yValues, zValues, topo_dir, &
+                            real(P%lonP, kind=dp), real(P%latP, kind=dp))
+     else
+          call load_alloc_topo(topo_file, numLons, numLats, xValues, yValues, zValues)
+     endif
+
+!%================================================
+!% set up the global C-grid and operator matrices
+!%================================================
+      call gen_global_grid(zValues, xValues, yValues, numLons-1, H_hg, nph, dir_grid)
+
+      ! zValues, xValues, yValues are all deallocated
+      ! (ph_ug, ph_vg, ta_ug, ta_vg) are saved into /global/cols 
+      if (minval(H_hg(1,:)) < 0) then
+        write(*, '("****** Now ocean is in the first tau index of H_hg ******")')
+        print *, ""
+        !H_hg(1,:)=(H_hg(1,:)<=0).*H_hg(1,:)+0*(H_hg(1,:)>0);
+      end if
+
+     nta=size(H_hg,2);
+     !print *, nta
+
+      ! set the minimum permitted water depth on the global grid:
+      call adjust_min_depth(H_hg, nph, nta, dir_grid, 'Mercator', P%hmin_scheme, P%hmin, P%gppw, P%g, P%re, P%omega)
+
+      call remove_bays(H_hg, nph, nta, 0)  ! new depth is 0
+      call remove_seas(H_hg, nph, nta, 0, nph/20)  ! new depth is 0
+
+!     Make H_hg POSITIVE, until here below the sea level H_hg was NEGATIVE.
+      H_hg = -H_hg
+!     save H on the C-grid
+      call save_mat_int(H_hg, dir_grid // 'H_hg.dat')
+
+     print *,  nph, nta, nph*nta, count(H_hg>0), count(H_hg>0)/ nph*nta
+     call write_global_cgrid(H_hg, nph, nta, nu, nv, nh, np, dir_grid, dir_cols)
+
+!%=======================================
+!% write H, ta, heq etc. on the columns:
+!%=======================================
+
+     call write_global_ccols_col(H_hg, nph, nu, nv, nh, dir_grid, dir_cols)
+     deallocate(H_hg) ! don't need it anymore, free space
+!%====================================
+!% generate and write sparse matrices
+!%====================================
+     call write_global_cmats_col(nph, nu, nv, nh, P%latP, P%omega, P%g, P%re, P%beta, P%cdg, P%Qbar, dir_grid, dir_cols, dir_mats)
+
+!     deallocate(ta_ug, ta_vg, ph_ug, ph_vg, H_hg)
+!     deallocate(up, vp, hp, iu_ug, iv_vg, ih_hg)
+
+     write(*, '("Global grid generation complete")')
+
+!%===================================
+!% solve for a global barotropic tide
+!%===================================
+      call baro_solver_linear(cpts, nu, nv, nh, np, P%latP, P%lonP, P%g, P%re, nph, nta, dir_grid, dir_cols, dir_mats)
+
+!  %=====================================
+!  % solve for a global barotropic tide, 
+!  % and any associated local tides
+!  %=====================================
+ 
+end
+
+
