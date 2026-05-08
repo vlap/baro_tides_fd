@@ -38,7 +38,9 @@ subroutine umfpack_unsym(n, csc, rhs, uvh, messages, filesave,loadsym, savenum)
      logical                 :: messages, savenum, loadsym
 
       ! set default parameters
-        call umf4zdef (control)
+      print *, "UMFPACK solver is currently disabled (stubbed). Please use PARDISO."
+      stop
+      ! ! call umf4zdef (control)
 
       ! print control parameters.  set control (1) to 1 to print error messages only
       !                                set control (1) to 2 to print everything 
@@ -50,18 +52,18 @@ endif
 
 if (.not. loadsym) then
 
-      call umf4zpcon (control)
+      ! call umf4zpcon (control)
 
       ! pre-order and symbolic analysis
       WRITE(*,'("Reordering ... ")', advance='no') 
-      call umf4zsym(csc%ni, csc%nj, csc%indj, csc%indi, &
-                   real(csc%vals, kind=wp), imag(csc%vals), symbolic, control, info)
-!        call umf4zsym (n, n, Ap, Ai, Ax, Az, symbolic, control, info)
+      ! call umf4zsym(csc%ni, csc%nj, csc%indj, csc%indi, &
+      !              real(csc%vals, kind=wp), imag(csc%vals), symbolic, control, info)
+!        ! call umf4zsym (n, n, Ap, Ai, Ax, Az, symbolic, control, info)
       WRITE(*,'("done. ")', advance='no')
 
 !       print statistics computed so far
     if (messages) then
-       call umf4zpinf (control, info)
+       ! call umf4zpinf (control, info)
     endif
 
 !       check umf4zsym error condition
@@ -73,7 +75,7 @@ if (.not. loadsym) then
 !       save the symbolic analysis to the file s1.umf
 !       note that this is not needed until another matrix is
 !       factorized, below.
-        call umf4zssym (symbolic, filesave, status)
+        ! call umf4zssym (symbolic, filesave, status)
         if (status .lt. 0) then
             print *, 'Error occurred in umf4zssym: ', status
             stop
@@ -81,7 +83,7 @@ if (.not. loadsym) then
 
 else
 !       load the symbolic factorization back in (filename: n0.umf)
-        call umf4zlsym (symbolic, filesave, status)
+        ! call umf4zlsym (symbolic, filesave, status)
         if (status .lt. 0) then
             print *, 'Error occurred in umf4zlsym: ', status
             stop
@@ -90,14 +92,14 @@ endif
 
 ! numeric factorization
       WRITE(*,'("Factorization ... ")', advance='no') 
-      call umf4znum(csc%indj, csc%indi, real(csc%vals, kind=wp), imag(csc%vals), &
-                    symbolic, numeric, control, info)
-!        call umf4znum (Ap, Ai, Ax, Az, symbolic, numeric, control, info)
+      ! call umf4znum(csc%indj, csc%indi, real(csc%vals, kind=wp), imag(csc%vals), &
+      !               symbolic, numeric, control, info)
+!        ! call umf4znum (Ap, Ai, Ax, Az, symbolic, numeric, control, info)
       WRITE(*,'("done. ")', advance='no')
 
 !       print statistics for the numeric factorization
     if (messages) then
-       call umf4zpinf (control, info)
+       ! call umf4zpinf (control, info)
     endif
 
 !       check umf4znum error condition
@@ -109,7 +111,7 @@ endif
 if (savenum) then
 
 !       save the LU factors to the file n0.umf
-        call umf4zsnum (numeric, filesave, status)
+        ! call umf4zsnum (numeric, filesave, status)
         if (status .lt. 0) then
             print *, 'Error occurred in umf4zsnum: ', status
             stop
@@ -117,14 +119,14 @@ if (savenum) then
 endif
 
 !       free the symbolic analysis
-        call umf4zfsym (symbolic)
+        ! call umf4zfsym (symbolic)
 !       free the numeric factorization
-!        call umf4zfnum (numeric)
+!        ! call umf4zfnum (numeric)
 !       ----------------------------------------------------------------
 !       in case to load the LU factors back in, and solve the system
 !       ----------------------------------------------------------------
 !       load the numeric factorization back in (filename: n0.umf)
-!        call umf4zlnum (numeric, filesave, status)
+!        ! call umf4zlnum (numeric, filesave, status)
 !        if (status .lt. 0) then
 !            print *, 'Error occurred in umf4zlnum: ', status
 !            stop
@@ -134,8 +136,8 @@ endif
       WRITE(*,'("Solve ... ")', advance='no') 
       sys = 0
             allocate(uvh_r(n), uvh_i(n), stat=status)
-      call umf4zsol(sys, uvh_r, uvh_i,  real(rhs, kind=wp), imag(rhs), numeric, control, info)
-!        call umf4zsol (sys, x, xz, b, bz, numeric, control, info)
+      ! call umf4zsol(sys, uvh_r, uvh_i,  real(rhs, kind=wp), imag(rhs), numeric, control, info)
+!        ! call umf4zsol (sys, x, xz, b, bz, numeric, control, info)
       WRITE(*,'("done. ")', advance='no')
 
         if (info (1) .lt. 0) then
@@ -147,13 +149,13 @@ endif
             uvh = cmplx (uvh_r, uvh_i, kind=cwp)
 
 !       free the numeric factorization
-        call umf4zfnum (numeric)
+        ! call umf4zfnum (numeric)
 
 !       No LU factors (symbolic or numeric) are in memory at this point.
 
 !       print final statistics
 if (messages) then
-        call umf4zpinf (control, info)
+        ! call umf4zpinf (control, info)
 endif
 
 

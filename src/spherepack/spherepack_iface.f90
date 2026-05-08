@@ -1,4 +1,7 @@
 module spherepack_iface
+! Originally a wrapper for the legacy SPHEREPACK Fortran 77 library.
+! TO IMPROVE GPU PORTABILITY: Migrate from SPHEREPACK to modern SHTOOLS 
+! or GPU-accelerated cuSHT/cuFFT based kernels.
 
      use precisions, only: wp, cwp
      use my_trigs

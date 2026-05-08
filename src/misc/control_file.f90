@@ -1,6 +1,7 @@
 module control
 
      use precisions, only: dp, wp
+     use config_mod, only: params
      use spline
      use save_load
 
@@ -10,128 +11,7 @@ module control
 ! DEFAULT parameters of the problem and the solver.
 ! The defaults are over-written by the values from the control file
 !********************************************************************
-type params
-!********************************************************************
-! General specifications:
-!********************************************************************
-    integer :: isave = 0      	! true -- save to /yyyy_mm_dd__HH_MM
-                                ! false -- save to /0000_00_00__00_00
-	integer :: cleanup=1		! 0 - none, 1 - remove files in 'temp' dirs, 2 - remove ALL files in dir_mats
-    integer :: graphics = 0		! 1 to plot the final solution; 2 -- plus convergence plots (requires matlab22 command)
-	integer :: messages=0		! 0 -- none, 1 -- detailed timings, 2 -- integrals every iteration, 3 -- solver stats (a lot)
-    character(len=100) :: cpts='m2'	!  m2, k1, s2, o1, p1, n2, mf, k2, mm, q1
-    integer :: ncpts=1
-!	flags.graphics=1;
-!	flags.coor=1; % 1 for Mercator, 2 for lat-lon
-    character(len=17) :: gridid='0' !  0, or a fileid for previous grid...
-    integer :: use_sol			! 1 -- use the available solution as the initial guess; 0 -- otherwise
-!********************************************************************
-! Global grid:
-!********************************************************************
-     integer :: nph = 720! 1/4 degree: 1440 ! 1/6 degree: 2160 !1/8 degree: 2880
-     integer :: coor = 1! 1 for Mercator, 2 for lat-lon
-     integer :: load_etopo = 0 ! true -- load the original ETOPO/NOCS file
-								! false -- use topo_file created earlier
-	 integer :: etopo_res = 5400 ! number of lon grid points that etopo should be interpolated down to
-     integer :: bays=1;  ! 0=keep; 1=remove
-     integer :: inlandseas=1;   ! 0=keep; 1=remove
-!	flags.global.filter.masklim=0.4;  % set to ocean when this proportion is exceeded...
-
-     integer :: hmin_scheme=1;  ! 1=simple min depth; 2=local critera
-     real(dp):: hmin=10;   ! option 1: a simple minimum depth
-     integer :: gppw=4;    ! option 2: min number of Grid Points Per Wavelength
-!********************************************************************
-!  Bottom friction scheme:
-!********************************************************************
-     integer   :: fr_scheme=2		! % 1=linear (cd, ubar), 2=linear (cd, Qbar)
-									! % 3=quadratic (cd, Q); 4=local area models
-     real(dp)  :: cd=0.0025			! nondimensional drag coefficient
-     real(dp)  :: ubar=1			! option 1: average value for friction velocity
-     real(dp)  :: Qbar=100			! option 2: average value for transport Q
-     integer   :: ndays = 0			! length of projection (in days) (optional, if =0 then it is calculated with calc_projection_period)
-     integer   :: nppp = 0			! min number of points per period (optional, if =0 then default ppp = 8 is used)
-
-     real(dp)  :: sh_depth = 1000	! deeper than sh_depth meters is DEEP, the rest is SHALLOW ocean
-     real(dp)  :: coast_dist = 3e5	! closer to the coast than coast_dist is COASTAL, the rest is OPEN ocean
-!********************************************************************
-!  SAL scheme:
-!********************************************************************
-     integer	:: sal_scheme=1	! 0=none, 1=scalar approx, >=2 iteration
-                          		! 2:real(beta0), 3: betamin < real(beta) < betamax
-     real(dp)	:: beta0 = 0.085! initial value for beta
-     real(dp)	:: betamin = 0	! minimum value for beta (iteration)
-     real(dp)	:: betamax = 0.3! maximum value for beta (iteration)
-     integer	:: ntrunc = 360	! % max number of phi gridpoints for spherical harmonics
-     integer	:: save_sht = 0	! 0 - keep the SH polynomials in memory between the iterations
-								! 1 - save to disk (saves RAM if ntrunc is large)
-     real(dp)	:: sal_avg = 10	! % average over this many degrees when calculating beta
-!********************************************************************
-! BAROTROPIC Internal Tide Ddrag scheme
-!********************************************************************
-	integer		:: itd_scheme=0		! 0=none; 1=parameterized; 2=local area modelling
-	integer		:: N_form = 1		! 1 for uniform, 2 for Ns/(1-z/NL)
-    real(dp)	:: Ns = .02		! optional surface stratification
-    real(dp)	:: Nl = 500		! optional stratification lengthscale
-    real(dp)	:: itd_coeff = 1		! maximum value for the ITD Q parameter
-	integer		:: trapped = 1		! 0=all lats; 1=below crit lat
-    integer		:: sht_smooth_H=720	! % truncation order for the spherical harmonic representation of H
-	integer		:: smooth_type=1	! % truncation order for the spherical harmonic representation of H
-!	integer		:: smooth_save_load=1	!% 0 - run calculations; 1 - save and later load the file with the smoothed topo
-
-    character(len=50) :: N_data='woa05_1deg_pole_15_-40'	! file for statification data
-	!N_data=0! 0 for no data...
-!********************************************************************
-! LIBRARIES AND THREADING
-!********************************************************************
-	character   :: lib = 'm' ! 'm' for MKL lib functions; 's' for SparseKit and ad-hoc functions
-	integer		:: omp_num_threads=0	! # of processors with shared memory, default = OMP_GET_MAX_THREADS
-	integer		:: mpi_num_nodes  =0	! # of nodes for the distributed-memory parallel solver, default = 1
-	integer		:: blas_num_threads		  =0	! 0 - do not use MKL BLAS; else # of threads for MKL BLAS
-!********************************************************************
-! MATRIX SOLVER
-!********************************************************************
-	character(len=7) :: solver='pardiso'! umfpack, pardiso, gmres
-!******** Iterative algorithms (with preconditioning)    ****************************************
-	character(len=7) :: gmres_prec='ilut'		! Select the preconditioning method for GMRES: ilut (not implemented: ilu0)
-	integer 	:: gmres_rest_it=3		! the number of the non-restarted FGMRES iterations.
-	integer 	:: gmres_tol=6		! specifies residual tolerance: 10^{-gmres_tol} (default is 1.0D-6)
-!*************** MKL, PARDISO ****************************************
-!**** Direct-Iterative CGS (Conjugate-Gradients Squared) with LU factorization on a first few steps ******
-	integer 	:: pardiso_iterative=0	! 0 for direct solver; 1 incurres LU-preconditioned CGS iterations
-	integer 	:: pardiso_iter_tol=6	! CGS iterations with astopping tolerance of 10^{-pardiso_iter_tol}
-!******** Direct, with parallel LU factorization and Out-of-Core mode ********
-	integer 	:: pardiso_symbolic=1	! 0 ('keep none') - incurres symbolic factorization on every iteration
-										! 1 ('keep symbolic') - symbolic factorization on the first iteration only
-										! (the result is kept in RAM)
-	integer 	:: pardiso_ooc=1		! 1 for out-of-core version (RAM require is reduced, slower)
-										! 0 for in-core version (default, faster)
-	integer 	:: pardiso_max_ram=20*1024	! the total RAM (Mb) that can be used for
-										! storing the matrix factors
-	integer 	:: pardiso_max_swap=0*1024	! same for swap memory (Mb)
-	integer 	:: pardiso_keep_files=0	! 0 -- files saved in OCC will be removed
-
-	integer		:: cvg_scheme=1			!% 1 for complex dh, 2 for abs(dh)
-    real(dp)	:: cvg_dhbar=0.01		!% domain averaged requirement on the residual
-    real(dp)	:: cvg_dhmax=0.1		!% pointwise requirement on the residual
-    integer		:: p_fric = 1			! 1 for friction; 2 for over-relaxation
-    real(dp)	:: p_avg = 0.5			! for averaging between iterations; 1 is no averaging
-
-!********************************************************************
-! Physical Parameters:
-!********************************************************************
-     ! In this configuration the North pole is centered on Greenland (30◦W, 80◦N)
-     ! and the South pole on Antarctica (30◦W, 80◦S)
-     ! The other option of (40◦W, 75◦N) seems to touch water within finer grid
-     real(dp) :: latP = 15!10!15 ! Pole of the rotated spherical coordinates
-     real(dp) :: lonP = -40!-30!-40
-
-     real(dp)  :: re = 6.371e6                  ! average earth's radius, m
-     real(dp)  :: omega = 7.292115e-5                 ! angular velocity, rad/s
-     real(dp)  :: g = 9.80665                 ! surface gravity, m/s^2
-     real(dp)  :: rhoe = 5515    ! average density of planet, kg/m^2
-     real(dp)  :: rhoo = 1030    ! average density of seawater, kg/m^3
-!********************************************************************
-end type params
+! Params type moved to config_mod.f90
 
 
      type tide_params
@@ -316,6 +196,10 @@ subroutine control_file(file_name, P)
 	        case ('smooth_type')
 	           read(buffer, *, iostat=ios) P%smooth_type
 !	           print *, 'Read smoothing type of H: ', P%smooth_type
+            case ('baro_on_smoothed')
+               read(buffer, *, iostat=ios) P%baro_on_smoothed
+            case ('topo_file')
+               read(buffer, *, iostat=ios) P%topo_file
 !	        case ('smooth_save_load')
 !	           read(buffer, *, iostat=ios) P%smooth_save_load
 !	           print *, 'Read save/load type of the smoothed H: ', P%smooth_save_load

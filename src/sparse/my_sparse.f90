@@ -1,4 +1,7 @@
 module my_sparse
+! Originally an ad-hoc collection of sparse matrix types and routines.
+! TO IMPROVE GPU PORTABILITY: Replace these manual implementations with modern
+! libraries like PETSc or PSBLAS which handle GPU offloading and memory management.
 
      use precisions, only: sp, dp, wp, cwp
 	 use dispmodule

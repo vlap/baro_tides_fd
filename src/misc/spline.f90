@@ -1,5 +1,8 @@
 module spline
-! contains content taken from the following libraries:
+! Originally implemented as an ad-hoc collection of spline and Chebyshev routines.
+! Taken from various sources including toms446.f90.
+! TO IMPROVE GPU PORTABILITY: Replace these manual loops with standard libraries 
+! like FINUFFT or specialized interpolation kernels that can be offloaded.
 !**********************************************************************************************************
 !			spline.f90
 !			toms446.f90

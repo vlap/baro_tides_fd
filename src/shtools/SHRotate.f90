@@ -769,14 +769,14 @@ subroutine djpi2(dj, lmax)
 		fl2p1 = l+lp1
 		
 		do i = 1, l
-			f(i) = dsqrt(i*(fl2p1-i))
+			f(i) = sqrt(i*(fl2p1-i))
         	enddo
         	
         	f1 = f1*(l+l-1.0d0)/(l+l)
 
 		! Do N = 0 terms
 		
-		dj(lp1,1,lp1) = -dsqrt(f1)
+		dj(lp1,1,lp1) = -sqrt(f1)
 		dj(l,1,lp1)   = 0.0d0
 		
 		do i = 2, l
@@ -796,7 +796,7 @@ subroutine djpi2(dj, lmax)
 			g1 = g1 + 1.0d0
 			g2 = g2 - 1.0d0
 			f2 = f2*g2/g1
-			dj(lp1,np,lp1) = -dsqrt(f2)
+			dj(lp1,np,lp1) = -sqrt(f2)
 			dj(l,np,lp1) = dj(lp1,np,lp1)*en2/f(1)
 
 			do i = 2, l-n
@@ -1220,14 +1220,14 @@ subroutine djpi2_2(dj, l, lmax, f1)
 		fl2p1 = l+lp1
 
 		do i = 1, l
-			f(i) = dsqrt(i*(fl2p1-i))
+			f(i) = sqrt(i*(fl2p1-i))
         enddo
 
         	f1 = f1*(l+l-1.0d0)/(l+l)
 
 		! Do N = 0 terms
 
-		dj(lp1,1) = -dsqrt(f1)
+		dj(lp1,1) = -sqrt(f1)
 		dj(l,1)   = 0.0d0
 
 		do i = 2, l
@@ -1247,7 +1247,7 @@ subroutine djpi2_2(dj, l, lmax, f1)
 			g1 = g1 + 1.0d0
 			g2 = g2 - 1.0d0
 			f2 = f2*g2/g1
-			dj(lp1,np) = -dsqrt(f2)
+			dj(lp1,np) = -sqrt(f2)
 			dj(l,np) = dj(lp1,np)*en2/f(1)
 
 			do i = 2, l-n

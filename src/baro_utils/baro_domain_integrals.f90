@@ -7,7 +7,8 @@ module baro_integrals
      use my_trigs
      use save_load!, only:load_alloc_vector, save_vector
      use sal
-     use my_blas
+     ! use my_blas ! Originally used custom my_blas wrapper for MKL/BLAS calls.
+     ! Standard Fortran dot_product is now used for better portability.
 
      type fric_breakdown
           real(wp) :: shallow, deep, coastal, open, total
@@ -93,14 +94,14 @@ subroutine calc_convergence(nu, nv, nh, itn, P, cpts, delta, dir_cols, dir_sols)
 	    delta(itn,2,ccpt) = maxval(abs(v_new-v))
 	    dh = abs(h_new-h)
 	    delta(itn,3,ccpt) = maxval(dh)
-	    delta(itn,4,ccpt) = vec_vec_dot(dA_h,dh)/sum(dA_h)
+	    delta(itn,4,ccpt) = dot_product(dA_h,dh)/sum(dA_h)
 	    dh=abs( abs(h_new) - abs(h) )
 	    delta(itn,5,ccpt)=maxval(dh)
-	    delta(itn,6,ccpt)=vec_vec_dot(dA_h,dh)/sum(dA_h)
+	    delta(itn,6,ccpt)=dot_product(dA_h,dh)/sum(dA_h)
 
-	    delta(itn,7,ccpt) = vec_vec_dot(abs( (h_new-h)/(h*log2int(abs(h)>1e-6) + 1.*log2int(abs(h)<=1e-6)) ), dA_h)/sum(dA_h)
-	    delta(itn,8,ccpt) = .5*(  vec_vec_dot(abs( (u_new-u)/(u*log2int(abs(u)>1e-6) + 1.*log2int(abs(u)<=1e-6)) ), dA_u)/sum(dA_u) + &
-	    						  vec_vec_dot(abs( (v_new-v)/(v*log2int(abs(v)>1e-6) + 1.*log2int(abs(v)<=1e-6)) ), dA_v)/sum(dA_v)  )
+	    delta(itn,7,ccpt) = dot_product(abs( (h_new-h)/(h*log2int(abs(h)>1e-6) + 1.*log2int(abs(h)<=1e-6)) ), dA_h)/sum(dA_h)
+	    delta(itn,8,ccpt) = .5*(  dot_product(abs( (u_new-u)/(u*log2int(abs(u)>1e-6) + 1.*log2int(abs(u)<=1e-6)) ), dA_u)/sum(dA_u) + &
+	    						  dot_product(abs( (v_new-v)/(v*log2int(abs(v)>1e-6) + 1.*log2int(abs(v)<=1e-6)) ), dA_v)/sum(dA_v)  )
 
 	  enddo
 	    call save_matrix_3d(delta, dir_sols // 'delta.dat')
@@ -311,7 +312,7 @@ endif
 !%==================================
 !% calculate basic Ocean statistics
 !%==================================
-di%mass = rhoo*vec_vec_dot(dA_h, H_h)
+di%mass = rhoo*dot_product(dA_h, H_h)
 
 	!***********************************************************************************
 	! KINETIC ENERGY
@@ -325,13 +326,13 @@ di%mass = rhoo*vec_vec_dot(dA_h, H_h)
 			temp2=0.25*rhoo*(abs(v)**2)/H_v
 	end select
 
-  di%ke = vec_vec_dot(dA_u, temp1) + vec_vec_dot(dA_v, temp2)
+  di%ke = dot_product(dA_u, temp1) + dot_product(dA_v, temp2)
 
 	!***********************************************************************************
 	! POTENTIAL ENERGY
 	!***********************************************************************************
 	temp3 = 0.25*g*rhoo*abs(h)**2
-	di%pe = vec_vec_dot(dA_h, temp3)
+	di%pe = dot_product(dA_h, temp3)
 
 	!***********************************************************************************
 	! calculate the globally integrated total dissipation (W)
@@ -340,7 +341,7 @@ di%mass = rhoo*vec_vec_dot(dA_h, H_h)
      tidal_pars = get_pars(cpt)
 
      temp3 = 0.5*g*rhoo*tidal_pars%omega0*real( i*heq*conjg(h), kind=wp )
-     di%d = vec_vec_dot(dA_h, temp3)
+     di%d = dot_product(dA_h, temp3)
      deallocate(heq)
 
 	!***********************************************************************************
@@ -355,7 +356,7 @@ di%mass = rhoo*vec_vec_dot(dA_h, H_h)
 	endif
 
      temp3 = -0.5*g*rhoo*tidal_pars%omega0*real( i*hsal*conjg(h), kind=wp )
-     di%dsal = vec_vec_dot(dA_h, temp3)
+     di%dsal = dot_product(dA_h, temp3)
 
 	!***********************************************************************************
 	! now analyse the frictional dissipation (W/m^2):
@@ -403,12 +404,12 @@ di%mass = rhoo*vec_vec_dot(dA_h, H_h)
 	end select
 
 
- di%dbl%total = vec_vec_dot(dA_u, temp1) + vec_vec_dot(dA_v, temp2)
+ di%dbl%total = dot_product(dA_u, temp1) + dot_product(dA_v, temp2)
 ! using count(reshape(..., [n, 1]), 2) to convert logical to integer
- di%dbl%shallow = vec_vec_dot( dA_u, temp1*count(reshape(H_u <= P%sh_depth, [nu, 1]), 2) ) + &
- 				  vec_vec_dot( dA_v, temp2*count(reshape(H_v <= P%sh_depth, [nv, 1]), 2) )
- di%dbl%deep = vec_vec_dot( dA_u, temp1*count(reshape(H_u > P%sh_depth, [nu, 1]), 2) ) + &
- 				  vec_vec_dot( dA_v, temp2*count(reshape(H_v > P%sh_depth, [nv, 1]), 2) )
+ di%dbl%shallow = dot_product( dA_u, temp1*count(reshape(H_u <= P%sh_depth, [nu, 1]), 2) ) + &
+ 				  dot_product( dA_v, temp2*count(reshape(H_v <= P%sh_depth, [nv, 1]), 2) )
+ di%dbl%deep = dot_product( dA_u, temp1*count(reshape(H_u > P%sh_depth, [nu, 1]), 2) ) + &
+ 				  dot_product( dA_v, temp2*count(reshape(H_v > P%sh_depth, [nv, 1]), 2) )
 
 !	Calculate the coordinates of the coastal areas
 inquire( file=dir_cols//'temp/'//'coast_ind_u.dat', exist=file_exist_u )
@@ -424,8 +425,8 @@ inquire( file=dir_cols//'temp/'//'coast_ind_v.dat', exist=file_exist_v )
 		call load_alloc_vector(I_v, dir_cols//'temp/'//'coast_ind_v.dat')
 	endif
 
- di%dbl%coastal = vec_vec_dot(dA_u, temp1*I_u) + vec_vec_dot(dA_v, temp2*I_v)
- di%dbl%open = vec_vec_dot(dA_u, temp1*(1-I_u)) + vec_vec_dot(dA_v, temp2*(1-I_v))
+ di%dbl%coastal = dot_product(dA_u, temp1*I_u) + dot_product(dA_v, temp2*I_v)
+ di%dbl%open = dot_product(dA_u, temp1*(1-I_u)) + dot_product(dA_v, temp2*(1-I_v))
 
 !  %====================================================
 !  % now analyse the internal tide dissipation (W/m^2):
@@ -464,14 +465,14 @@ inquire( file=dir_cols//'temp/'//'coast_ind_v.dat', exist=file_exist_v )
 			temp2=0.5*rhoo*real(conjg(v)*Dv, kind=wp)/H_v
 	end select
 
-	di%dit%total = vec_vec_dot(dA_u, temp1) + vec_vec_dot(dA_v, temp2)
+	di%dit%total = dot_product(dA_u, temp1) + dot_product(dA_v, temp2)
 ! using count(reshape(..., [n, 1]), 2) to convert logical to integer
- di%dit%shallow = vec_vec_dot( dA_u, temp1*count(reshape(H_u <= P%sh_depth, [nu, 1]), 2) ) + &
- 				  vec_vec_dot( dA_v, temp2*count(reshape(H_v <= P%sh_depth, [nv, 1]), 2) )
- di%dit%deep = vec_vec_dot( dA_u, temp1*count(reshape(H_u > P%sh_depth, [nu, 1]), 2) ) + &
- 				  vec_vec_dot( dA_v, temp2*count(reshape(H_v > P%sh_depth, [nv, 1]), 2) )
- di%dit%coastal = vec_vec_dot(dA_u, temp1*I_u) + vec_vec_dot(dA_v, temp2*I_v)
- di%dit%open = vec_vec_dot(dA_u, temp1*(1-I_u)) + vec_vec_dot(dA_v, temp2*(1-I_v))
+ di%dit%shallow = dot_product( dA_u, temp1*count(reshape(H_u <= P%sh_depth, [nu, 1]), 2) ) + &
+ 				  dot_product( dA_v, temp2*count(reshape(H_v <= P%sh_depth, [nv, 1]), 2) )
+ di%dit%deep = dot_product( dA_u, temp1*count(reshape(H_u > P%sh_depth, [nu, 1]), 2) ) + &
+ 				  dot_product( dA_v, temp2*count(reshape(H_v > P%sh_depth, [nv, 1]), 2) )
+ di%dit%coastal = dot_product(dA_u, temp1*I_u) + dot_product(dA_v, temp2*I_v)
+ di%dit%open = dot_product(dA_u, temp1*(1-I_u)) + dot_product(dA_v, temp2*(1-I_v))
 
 !  %===========================================================
 !  % finally check for Coriolis energy input (should be zero)
@@ -496,7 +497,7 @@ deallocate(tmp_u, tmp_v)
 call dealloc_sparse(u2vf)
 call dealloc_sparse(v2uf)
 
-    di%df = vec_vec_dot(dA_u, temp1) + vec_vec_dot(dA_v, temp2)
+    di%df = dot_product(dA_u, temp1) + dot_product(dA_v, temp2)
  !call disp('temp1: ', temp1, ADVANCE='NO')
  !call disp('temp1: ', temp2)
 

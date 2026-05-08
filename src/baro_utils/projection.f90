@@ -7,7 +7,8 @@ module baro_projection
      use my_sparse_aggregate
      use control
      use sal
-     use my_blas
+     ! use my_blas ! Originally used custom my_blas wrapper for MKL/BLAS calls.
+     ! Standard Fortran matmul is now used for better portability.
 
      integer, parameter :: sind = 86400 ! number of seconds in a day
      integer, parameter :: ppp = 8 ! the default value for P%nppp when P%nppp is not specified
@@ -168,13 +169,13 @@ do ct=1,ppc*maxval(ncycles)
 !  v_v = real( matmul(vstore_v,exp(-i*omega0*t)) )
 !  u_v = real( matmul(ustore_v,exp(-i*omega0*t)) )
 
-  	call mat_mat_mul_d(ustore_u,exp(-i*omega0*t), P%blas_num_threads, u_u)
+u_u = matmul(ustore_u,exp(-i*omega0*t))
 	u_u = real(u_u)
-  	call mat_mat_mul_d(vstore_u,exp(-i*omega0*t), P%blas_num_threads, v_u)
+  	v_u = matmul(vstore_u,exp(-i*omega0*t))
 	v_u = real(v_u)
-	call mat_mat_mul_d(ustore_v,exp(-i*omega0*t), P%blas_num_threads, u_v)
+	u_v = matmul(ustore_v,exp(-i*omega0*t))
 	u_v = real(u_v)
-  	call mat_mat_mul_d(vstore_v,exp(-i*omega0*t), P%blas_num_threads, v_v)
+  	v_v = matmul(vstore_v,exp(-i*omega0*t))
 	v_v = real(v_v)
 
   do m = 1,nu
