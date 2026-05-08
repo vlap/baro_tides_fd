@@ -1,0 +1,7 @@
+build/
+vendor/
+data/
+mod/
+obj/
+benchmarks/last_run.log
+tests/regression/current_run.log
