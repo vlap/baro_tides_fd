@@ -2386,10 +2386,10 @@ subroutine least_set ( point_num, x, f, w, nterms, b, c, d )
 
     b(j) = b(j) / s(j)
 
-    if ( j == 1 ) then
-      c(j) = 0.0D+00
-    else
+    if ( j > 1 ) then
       c(j) = s(j) / s(j-1)
+    else
+      c(j) = 0.0D+00
     end if
 
     do i = 1, point_num

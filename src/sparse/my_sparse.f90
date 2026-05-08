@@ -369,61 +369,60 @@ end subroutine init_sparse_zeros_cmplx
 !==========================================================================================
 subroutine deallocate_sparse(A)
           type (triplet) :: A
-
-deallocate(A%indi, A%indj, A%vals)
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_sparse
 
 subroutine deallocate_sparse_dp(A)
           type (triplet_dp) :: A
-
-deallocate(A%indi, A%indj, A%vals)
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_sparse_dp
 
 subroutine deallocate_sparse_int(A)
-
           type (triplet_int) :: A
-
-deallocate(A%indi, A%indj, A%vals)
-
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_sparse_int
 
-
 subroutine deallocate_sparse_cmplx(A)
-
           type (triplet_cmplx) :: A
-
-deallocate(A%indi, A%indj, A%vals)
-
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_sparse_cmplx
 
 subroutine deallocate_csr(A)
-
           type (csr) :: A
-
-deallocate(A%indi, A%indj, A%vals)
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_csr
+
 subroutine deallocate_csr_dp(A)
-
           type (csr_dp) :: A
-
-deallocate(A%indi, A%indj, A%vals)
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_csr_dp
 
 subroutine deallocate_csr_cmplx(A)
-
           type (csr_cmplx) :: A
-
-deallocate(A%indi, A%indj, A%vals)
-
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_csr_cmplx
 
 subroutine deallocate_csc_cmplx(A)
-
           type (csc_cmplx) :: A
-
-deallocate(A%indi, A%indj, A%vals)
-
+    if (allocated(A%indi)) deallocate(A%indi)
+    if (allocated(A%indj)) deallocate(A%indj)
+    if (allocated(A%vals)) deallocate(A%vals)
 end subroutine deallocate_csc_cmplx
+
 !==========================================================================================
 !==========================================================================================
 
@@ -721,7 +720,7 @@ subroutine right_mult_diag(A, diag, nj)
           type (triplet), intent(inout) :: A
 
 if (nj /= A%nj) then
-      write(*, '("Error in right_mult_diag", i10, "/=", i10)'), nj,A%nj
+      write(*, '("Error in right_mult_diag", i10, "/=", i10)') nj,A%nj
       print *,A%ni, A%nj
       stop
 endif

@@ -733,7 +733,7 @@ implicit none
      character(len=2)   :: cpt
      real(wp)             :: th0, ph0
 
-     real(wp), pointer    :: th_h(:), ph_h(:)
+     real(wp), allocatable    :: th_h(:), ph_h(:)
      integer            :: status1, status2, status3!, j
 
      character(len = *) :: dir_grid, dir_cols
@@ -749,9 +749,9 @@ implicit none
 !%===============
 !% calculate heq
 !%===============
-    if (associated(th_h)) deallocate(th_h)
+    if (allocated(th_h)) deallocate(th_h)
     allocate(th_h(nh), stat = status1)
-    if (associated(ph_h)) deallocate(ph_h)
+    if (allocated(ph_h)) deallocate(ph_h)
     allocate(ph_h(nh), stat = status2)
 
     allocate(heq(nh), stat = status3)
@@ -797,7 +797,7 @@ implicit none
      character(len=2)   :: cpt
      type (tide_params) :: pars
      real(wp)           :: th0, ph0
-     real(wp), pointer  :: th(:), ph(:)
+     real(wp), intent(in) :: th(:), ph(:)
 
      complex(cwp), allocatable, dimension(:) :: heq(:)
 

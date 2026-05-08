@@ -63,7 +63,7 @@ implicit none
     mat_ful = 0
 
     do c = 1,mat_coo%nz
-    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + mat_coo%vals(c)
+    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + int(mat_coo%vals(c))
     enddo
 
 end subroutine conv_coo2full
@@ -82,7 +82,7 @@ implicit none
     mat_ful = 0
 
     do c = 1,mat_coo%nz
-    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + mat_coo%vals(c)
+    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + int(mat_coo%vals(c))
     enddo
 
 end subroutine conv_coo2full_int
@@ -101,7 +101,7 @@ implicit none
     mat_ful = 0
 
     do c = 1,mat_coo%nz
-    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + mat_coo%vals(c)
+    	mat_ful(mat_coo%indi(c),mat_coo%indj(c)) = mat_ful(mat_coo%indi(c),mat_coo%indj(c)) + int(mat_coo%vals(c))
     enddo
 
 end subroutine conv_coo2full_cmplx

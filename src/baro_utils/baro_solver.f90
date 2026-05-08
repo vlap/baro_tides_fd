@@ -662,6 +662,7 @@ do ccpt = 1, ncpts
 
       call disp('Solving ' // tostring(mat_csr_cmplx%ni) //' x '// tostring(mat_csr_cmplx%nj)//' system with '// &
                  tostring(mat_csr_cmplx%nz)// ' entries for:' )
+print *, "Check 1: ITD"
 !==========================================================================================
 !    %========================
 !    % add internal tide drag ! should be incorporated into write_baro_mats
@@ -720,6 +721,7 @@ do ccpt = 1, ncpts
 		deallocate(KU, KV, ufactor, vfactor)
 
 	end if
+print *, "Check 2: RHS"
 !==========================================================================================
 
 !     Save the final version of the matrix
@@ -731,6 +733,7 @@ do ccpt = 1, ncpts
 !% calculate rhs forcing
 !%=======================
      call baro_rhs(rhs, cpt, P, GD, dir_cols, dir_grid, dir_mats)
+print *, "Check 3: BCs"
      call save_vector(rhs, dir_mats // 'rhs_' // cpt //'.dat')
 
 !  %=============
@@ -892,15 +895,16 @@ nh = GD%nh
 !*************************************************************************
      allocate(rhs(nu+nv+nh), stat = istatus)
      rhs = 0.
-
+print *, "Check 2.1: heq"
      call calc_heq_h(heq, cpt, nh, latP, lonP, coor, dir_cols, dir_grid)
 !     call save_vector(heq, dir_cols // 'heq.dat')
-
+print *, "Check 2.2: coo_vec_mul GHU"
      call coo_vec_mul(GHU, heq, P%lib, rhs(1:nu))
      call dealloc_sparse(GHU)
-
+print *, "Check 2.3: coo_vec_mul GHV"
      call coo_vec_mul(GHV, heq, P%lib, rhs(nu+1:nu+nv))
      call dealloc_sparse(GHV)
+print *, "Check 2.4: end"
 
 !     call save_vector(rhs, dir_cols // 'rhs.dat')
 

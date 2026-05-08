@@ -331,7 +331,7 @@ subroutine load_alloc_cmat(cmat, cmat_file)
       else
       	allocate(vals_dp(nz), stat=istat)
       	read(10) vals_dp
-      	cmat%vals = vals_dp
+      	cmat%vals = real(vals_dp, wp)
       endif
 
       cmat%ni = ni
@@ -611,7 +611,7 @@ subroutine load_alloc_mat_4(mat, mat_file, min, nin)
 	elseif (p == dp) then
 		allocate(mat_dp(m,n), stat = istatus)
 		read(10) mat_dp
-		mat = mat_dp
+		mat = real(mat_dp, sp)
 	endif
 
       CLOSE(10)
@@ -872,13 +872,13 @@ subroutine load_vec_4(vec, vec_file, nin)
 
       read(10) p
       read(10) n
-              if(present(nin)) nin=n
+              if(present(nin)) nin=int(n)
 		if (p == sp) then
 			read(10) vec
 		else
 			allocate(vec_dp(n), stat = istatus)
 			read(10) vec_dp
-			vec = vec_dp
+			vec = real(vec_dp, sp)
 		endif
 
       CLOSE(10)
@@ -900,7 +900,7 @@ subroutine load_vec_8(vec, vec_file, nin)
 
       read(10) p
       read(10) n
-              if(present(nin)) nin=n
+              if(present(nin)) nin=int(n)
 
 		if (p == dp) then
 			read(10) vec
@@ -926,7 +926,7 @@ subroutine load_vec_int(vec, vec_file, nin)
       OPEN(unit=10, file=vec_file,form='unformatted', access='stream', status='old', action='read')
 
       read(10) n
-              if(present(nin)) nin=n
+              if(present(nin)) nin=int(n)
 
       read(10) vec
 
@@ -950,7 +950,7 @@ subroutine load_vec_cmplx_4(vec, vec_file, nin)
       read(10) p
       read(10) n
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
           if (size(vec) /= n) then
                print *, "Error in subroutine load_vec_cmplx, size(vec) doesn't match specified in the file: ", size(vec), "/=", n
@@ -985,7 +985,7 @@ subroutine load_vec_cmplx_8(vec, vec_file, nin)
       read(10) p
       read(10) n
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
           if (size(vec) /= n) then
                print *, "Error in subroutine load_vec_cmplx, size(vec) doesn't match specified in the file: ", size(vec), "/=", n
@@ -1032,12 +1032,12 @@ subroutine load_alloc_vec_4(vec, vec_file, nin)
 		else
 			allocate(vec_dp(n), stat = istatus)
 			read(10) vec_dp
-			vec = vec_dp
+			vec = real(vec_dp, sp)
 		endif
 
       CLOSE(10)
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
 end subroutine load_alloc_vec_4
 
@@ -1074,7 +1074,7 @@ subroutine load_alloc_vec_8(vec, vec_file, nin)
 
       CLOSE(10)
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
 end subroutine load_alloc_vec_8
 !********************************************************************************************
@@ -1103,7 +1103,7 @@ subroutine load_alloc_vec_int(vec, vec_file, nin)
 
       CLOSE(10)
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
 end subroutine load_alloc_vec_int
 
@@ -1140,7 +1140,7 @@ subroutine load_alloc_vec_cmplx_4(vec, vec_file, nin)
 
     vec = cmplx(vec_r, vec_i, kind = sp)
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
 end subroutine load_alloc_vec_cmplx_4
 !********************************************************************************************
@@ -1176,7 +1176,7 @@ subroutine load_alloc_vec_cmplx_8(vec, vec_file, nin)
 
     vec = cmplx(vec_r, vec_i, kind = dp)
 
-    if(present(nin)) nin=n
+    if(present(nin)) nin=int(n)
 
 end subroutine load_alloc_vec_cmplx_8
 !==========================================================================================
@@ -1352,9 +1352,9 @@ endif
           read(10) yValues_dp
           read(10) zValues_dp
 
-          xValues = xValues_dp
-          yValues = yValues_dp
-          zValues = zValues_dp
+          xValues = real(xValues_dp, sp)
+          yValues = real(yValues_dp, sp)
+          zValues = real(zValues_dp, sp)
         endif
 
           CLOSE(10)
@@ -1472,10 +1472,10 @@ endif
           read(10) zValues_dp
           read(10) topo_dp
 
-          xValues = xValues_dp
-          yValues = yValues_dp
-          zValues = zValues_dp
-          topo = topo_dp
+          xValues = real(xValues_dp, sp)
+          yValues = real(yValues_dp, sp)
+          zValues = real(zValues_dp, sp)
+          topo = real(topo_dp, sp)
         endif
 
           CLOSE(10)
@@ -1567,7 +1567,7 @@ implicit none
     integer							:: d, h, m, s, ms !(day, hours, mins, seconds, milliseconds)
 	character(len=*), parameter 	:: dstr='d', hstr=':', mstr=':', sstr='.', msstr=''
 
-	seconds_int = seconds
+	seconds_int = nint(seconds)
 	d = seconds_int/(24*60*60)
 	h = modulo(seconds_int, 24*60*60)/(60*60)
 	m = modulo(seconds_int, 60*60)/60

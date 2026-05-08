@@ -19,7 +19,7 @@ use dispmodule
      type(path_config) :: paths
      character(17)               :: save_gridid
 
-     character(len=*), parameter :: P_file = 'control_file.txt'	! contains parameters of the problem and the solver
+     character(len=256)          :: P_file_path
      character(len=*), parameter :: GD_file = 'grid_file.txt'	! contains grid parameters
 
      type(params)	:: P
@@ -37,11 +37,15 @@ use dispmodule
 
 !********************************************************************
 
-     call system('clear')
 !%================================
 !% load parameters of the problem:
 !%================================
-     call control_file(P_file, P)
+     if (command_argument_count() > 0) then
+         call get_command_argument(1, P_file_path)
+     else
+         P_file_path = 'control_file.txt'
+     endif
+     call control_file(trim(P_file_path), P)
 
 !%========================
 !% set up file structure:

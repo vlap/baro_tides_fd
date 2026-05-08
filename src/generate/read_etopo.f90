@@ -102,8 +102,8 @@ end subroutine prepare_topo
      real(dp), allocatable :: xValues(:), yValues(:)
      integer, allocatable :: zValues(:, :)
 
-     write(*,'("Loading ETOPO netcdf file: ", a)', advance='no'), filename
-     write(*, '(" at resolution ", f4.2, " minute: ")', advance='no')   360*60/real(ilon-1)
+     write(*,'("Loading ETOPO netcdf file: ", a)', advance='no') filename
+!     write(*, '(" at resolution ", f4.2, " minute: ")', advance='no')   360*60/real(ilon-1)
 
 !     Open netcdf file
     status = nf90_open(filename, nf90_NoWrite, ncid)
@@ -272,7 +272,7 @@ end subroutine prepare_topo
     if (allocated(YValues)) deallocate(YValues)
     allocate(YValues(numLats), stat = statusy)
 
-    if (statusx /= 0 .or. statusy /= 0 .or. statusz /= 0 .or. numLons /= ilon .or. numLats /= jlat) then
+    if (statusx /= 0 .or. statusy /= 0 .or. statusz /= 0) then
          print *, "[Topo] Can't allocate the memory."
         stop
     end if

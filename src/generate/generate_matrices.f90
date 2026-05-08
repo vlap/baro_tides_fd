@@ -675,8 +675,8 @@ subroutine write_global_cmats_col(nph, nu, nv, nh, latP, omega, dir_grid, dir_co
      real(dp), allocatable :: H_u(:), H_v(:)!, H_h(:)
 
 
-     integer, pointer :: ivals(:), jvals(:), ispvals(:), jspvals(:)
-     real(dp), pointer :: vals(:), vals1(:), fvals(:), fspvals(:)
+     integer, allocatable :: ivals(:), jvals(:), ispvals(:), jspvals(:)
+     real(dp), allocatable :: vals(:), vals1(:), fvals(:), fspvals(:)
 
      real(dp)  ::      dph, dta
      integer ::      istat, statusj, status1, status2
@@ -734,13 +734,13 @@ dta = ta_vg(2)-ta_vg(1)
 write(*, '("Making matrices:")')
 
 nmax = max(nu, nv, nh)
-    if (associated(ivals)) deallocate(ivals) ! 4*nmax for 4th order scheme
+    if (allocated(ivals)) deallocate(ivals) ! 4*nmax for 4th order scheme
     allocate(ivals(2*nmax), stat = istat)
-    if (associated(jvals)) deallocate(jvals)
+    if (allocated(jvals)) deallocate(jvals)
     allocate(jvals(2*nmax), stat = statusj)
-    if (associated(vals)) deallocate(vals)
+    if (allocated(vals)) deallocate(vals)
     allocate(vals(2*nmax), stat = status1)
-    if (associated(vals1)) deallocate(vals1)
+    if (allocated(vals1)) deallocate(vals1)
     allocate(vals1(2*nmax), stat = status2)
 
     ivals = 0
@@ -965,14 +965,14 @@ call CPU_Time(T2)
     deallocate(ivals, jvals, vals, vals1)
     allocate(ivals(4*nmax), jvals(4*nmax), vals(4*nmax), stat = status1)
 
-    if (associated(fvals)) deallocate(fvals)
+    if (allocated(fvals)) deallocate(fvals)
     allocate(fvals(4*nmax), stat = status2)
 
-    if (associated(ispvals)) deallocate(ispvals) ! nmax for....
+    if (allocated(ispvals)) deallocate(ispvals) ! nmax for....
     allocate(ispvals(2*nmax), stat = istat)
-    if (associated(jspvals)) deallocate(jspvals)
+    if (allocated(jspvals)) deallocate(jspvals)
     allocate(jspvals(2*nmax), stat = statusj)
-    if (associated(fspvals)) deallocate(fspvals)
+    if (allocated(fspvals)) deallocate(fspvals)
     allocate(fspvals(2*nmax), stat = status1)
 
     ivals = 0
@@ -1241,8 +1241,8 @@ subroutine write_global_ccols_col(nph, nu, nv, nh, dir_grid, dir_cols, flag_itd_
      real(dp), allocatable  :: ta_ug(:), ta_vg(:)!, ph_vg(:)
      integer, allocatable   :: up(:, :), vp(:, :), hp(:, :)
 
-     real(dp), pointer :: ta_u(:), ta_v(:), ta_h(:)
-     real(dp), pointer :: H_u(:), H_v(:), H_h(:), H_sht_h(:)
+     real(dp), allocatable :: ta_u(:), ta_v(:), ta_h(:)
+     real(dp), allocatable :: H_u(:), H_v(:), H_h(:), H_sht_h(:)
 
      integer ::      statusu, statusv, statush
      integer ::      cu, cv, ch, cth, cph, cphl, cphr, ctha, cthb
@@ -1276,11 +1276,11 @@ write(*, '("tau, ")', advance = 'no')
 call CPU_Time(T1)
 call system_clock ( wall_t1, clock_rate, clock_max )
 
-    if (associated(ta_u)) deallocate(ta_u)
+    if (allocated(ta_u)) deallocate(ta_u)
     allocate(ta_u(nu), stat = statusu)
-    if (associated(ta_v)) deallocate(ta_v)
+    if (allocated(ta_v)) deallocate(ta_v)
     allocate(ta_v(nv), stat = statusv)
-    if (associated(ta_h)) deallocate(ta_h)
+    if (allocated(ta_h)) deallocate(ta_h)
     allocate(ta_h(nh), stat = statush)
 
 ta_u=ta_ug(up(:,2)) ! 2: theta-index
@@ -1303,23 +1303,19 @@ write(*, '("H, evaluating on the u-, ")', advance = 'no')
 !call CPU_Time(T1)
 !call system_clock ( wall_t1, clock_rate, clock_max )
 
-    if (associated(H_u)) deallocate(H_u)
+    if (allocated(H_u)) deallocate(H_u)
     allocate(H_u(nu), stat = statusu)
 
-do cu = 1, nu
-
+do concurrent (cu = 1:nu)
       cph=up(cu,1)
       cth=up(cu,2)
-
       cphr=cph
       cphl=1+modulo((cph-1)-1,nph)
-
       if (up(cu,3) == 0) then
         H_u(cu) = (H_hg(cphl,cth)+H_hg(cphr,cth))/2
       else
         H_u(cu) = max( H_hg(cphl,cth), H_hg(cphr,cth) )
       endif
-
 enddo
 
 !call CPU_Time(T2)
@@ -1333,23 +1329,19 @@ write(*, '("v-, ")', advance = 'no')
 !call CPU_Time(T1)
 !call system_clock ( wall_t1, clock_rate, clock_max )
 
-    if (associated(H_v)) deallocate(H_v)
+    if (allocated(H_v)) deallocate(H_v)
     allocate(H_v(nv), stat = statusv)
 
-do cv = 1, nv
-
+do concurrent (cv = 1:nv)
       cph=vp(cv,1)
       cth=vp(cv,2)
-
       cthb=cth-1
       ctha=cth
-
       if (vp(cv,3) == 0) then
         H_v(cv) = (H_hg(cph,cthb)+H_hg(cph,ctha))/2
       else
         H_v(cv) = max( H_hg(cph,ctha), H_hg(cph,cthb) )
       endif
-
 enddo
 
 !call CPU_Time(T2)
@@ -1363,9 +1355,9 @@ write(*, '("h-grid ")', advance = 'no')
 !call CPU_Time(T1)
 !call system_clock ( wall_t1, clock_rate, clock_max )
 
-    if (associated(H_h)) deallocate(H_h)
+    if (allocated(H_h)) deallocate(H_h)
     allocate(H_h(nh), stat = statush)
-    if (associated(H_sht_h)) deallocate(H_sht_h)
+    if (allocated(H_sht_h)) deallocate(H_sht_h)
     allocate(H_sht_h(nh), stat = statush)
 
 do ch = 1, nh

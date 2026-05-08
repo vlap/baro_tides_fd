@@ -70,8 +70,8 @@ MODULE  my_trigs
 !==========================================================================================
 
    complex(cwp), parameter :: i = dcmplx(0, 1)
-   real(dp), PARAMETER :: PI        = 2*ACOS(0.)      ! some constants
-   real(dp), PARAMETER :: Degree180 = 180.0
+   real(dp), PARAMETER :: PI        = 2.0_dp*ACOS(0.0_dp)      ! some constants
+   real(dp), PARAMETER :: Degree180 = 180.0_dp
    real(dp), PARAMETER :: R_to_D    = Degree180/PI
    real(dp), PARAMETER :: D_to_R    = PI/Degree180
 
@@ -185,7 +185,7 @@ CONTAINS
       IMPLICIT  NONE
       real(4), INTENT(IN) :: Radian
 
-      RadianToDegree = Radian * R_to_D
+      RadianToDegree = real(Radian * R_to_D, sp)
 
    END FUNCTION RadianToDegree
 
@@ -206,7 +206,7 @@ CONTAINS
 
 	allocate(RadianToDegree_vec(n), stat = istat)
 
-      RadianToDegree_vec = Radian * R_to_D
+      RadianToDegree_vec = real(Radian * R_to_D, sp)
 
    END FUNCTION RadianToDegree_vec
 
@@ -231,7 +231,7 @@ CONTAINS
       IMPLICIT  NONE
       real(4), INTENT(IN) :: Degree
 
-      DegreeToRadian = Degree * D_to_R
+      DegreeToRadian = real(Degree * D_to_R, sp)
    END FUNCTION  DegreeToRadian
 
    real(8) FUNCTION  DegreeToRadianDP(Degree)
@@ -250,7 +250,7 @@ CONTAINS
 
 	allocate(DegreeToRadian_vec(n), stat = istat)
 
-      DegreeToRadian_vec = Degree * D_to_R
+      DegreeToRadian_vec = real(Degree * D_to_R, sp)
    END FUNCTION  DegreeToRadian_vec
 
    FUNCTION  DegreeToRadianDP_vec(Degree)
@@ -417,7 +417,7 @@ CONTAINS
 	if (x == 0) then
       sinc_4 = 1
     else
-      sinc_4 = sin(pi*x)/(pi*x)
+      sinc_4 = real(sin(pi*x)/(pi*x), sp)
     endif
 
    END FUNCTION  sinc_4

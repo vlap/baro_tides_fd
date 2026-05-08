@@ -69,7 +69,7 @@ subroutine generate_global_grid(etopo_file, topo_file, topo_dir_in, topo_dir_out
 		call prepare_topo(etopo_file, numLons, numLats, xValues, yValues, zValues, &
                             real(P%lonP, kind=dp), real(P%latP, kind=dp))
 		! add to the filename the resolution in minutes
-		write (str_tmp, '(g10.2)') 360*60/real(numLons-1)
+		write (str_tmp, '(f10.1)') 360*60/real(numLons-1)
 		filename = 'topo_rot_'//trim(adjustl(str_tmp))//'min_pole_'//tostring(P%latP)//'_'//tostring(P%lonP)//'.dat'
 		dirname = topo_dir_out
 		!write to the file

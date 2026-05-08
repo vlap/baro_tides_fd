@@ -7,11 +7,11 @@ option(USE_OPENMP "Enable OpenMP" ON)
 # --- Compiler Flags ---
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O3 -march=native -ffast-math -funroll-loops")
-    set(CMAKE_Fortran_FLAGS_DEBUG "-g -fbounds-check -fbacktrace -Wall")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-g -fbounds-check -fbacktrace -Wall -Wextra -Wno-unused-dummy-argument -Wno-unused-variable -Wno-compare-reals -Wno-tabs -Wno-maybe-uninitialized -Wno-do-subscript -Wno-conversion -Wno-unused-function -Wno-unused-parameter -Wno-c-binding-type -Wno-line-truncation -Wno-unused-label -std=legacy")
     add_compile_options("-mcmodel=medium")
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "Intel")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O3 -xHost -ipo -fp-model fast=2")
-    set(CMAKE_Fortran_FLAGS_DEBUG "-g -traceback -check all -fpe0")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-g -traceback -check all -fpe0 -warn all -warn errors")
     add_compile_options("-mcmodel=medium" "-shared-intel")
 endif()
 
