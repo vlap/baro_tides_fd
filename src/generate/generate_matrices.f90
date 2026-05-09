@@ -768,7 +768,7 @@ call system_clock ( wall_t1, clock_rate, clock_max )
        cth=up(cu,2)
 
       cphr=cph
-      cphl=1+modulo((cph-1)-1,nph)
+      cphl=merge(nph, cph-1, cph == 1)
        hpl=ih_hg(cphl,cth)
        hpr=ih_hg(cphr,cth)
 
@@ -874,7 +874,7 @@ call system_clock ( wall_t1, clock_rate, clock_max )
        cth=hp(ch,2)
 
       cphl=cph
-      cphr=1+modulo((cph+1)-1,nph)
+      cphr=merge(1, cph+1, cph == nph)
        upl=iu_ug(cphl,cth)
        upr=iu_ug(cphr,cth)
 
@@ -1005,7 +1005,7 @@ call system_clock ( wall_t1, clock_rate, clock_max )
        ctha=cth+1
        cthb=cth
        cphr=cph
-       cphl=1+modulo((cph-1)-1,nph)
+       cphl=merge(nph, cph-1, cph == 1)
 
                 nvs=nvs+4
                 ivals(nvs-3:nvs)=cu
@@ -1078,8 +1078,8 @@ call system_clock ( wall_t1, clock_rate, clock_max )
 
        ctha=cth
        cthb=cth-1
-       cphr=1+modulo((cph+1)-1,nph)
        cphl=cph
+       cphr=merge(1, cph+1, cph == nph)
 
 
                 nvs=nvs+4
@@ -1310,7 +1310,7 @@ do concurrent (cu = 1:nu)
       cph=up(cu,1)
       cth=up(cu,2)
       cphr=cph
-      cphl=1+modulo((cph-1)-1,nph)
+      cphl=merge(nph, cph-1, cph == 1)
       if (up(cu,3) == 0) then
         H_u(cu) = (H_hg(cphl,cth)+H_hg(cphr,cth))/2
       else
